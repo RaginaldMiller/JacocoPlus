@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+  <properties>
+    <title>jacoco:instrument</title>
+  </properties>
+  <body>
+    <section name="jacoco:instrument">
+      <p><strong>Full name</strong>:</p>
+      <p>org.jacoco:jacoco-maven-plugin:0.8.4:instrument</p>
+      <p><strong>Description</strong>:</p>
+      <div>Performs offline instrumentation. Note that after execution of test
+you must restore original classes with help of
+"restore-instrumented-classes" goal. 
+<p><strong>Warning:</strong> The preferred way for code coverage
+analysis with JaCoCo is on-the-fly instrumentation. Offline
+instrumentation has several drawbacks and should only be used if a
+specific scenario explicitly requires this mode. Please consult <a
+href="offline.html">documentation</a> about offline instrumentation
+before using this mode.</p></div>
+      <p><strong>Attributes</strong>:</p>
+      <ul>
+        <li>Requires a Maven project to be executed.</li>
+        <li>Since version: <code>0.6.2</code>.</li>
+        <li>Binds by default to the <a href="http://maven.apache.org/ref/current/maven-core/lifecycles.html">lifecycle phase</a>: <code>process-classes</code>.</li>
+      </ul>
+      <subsection name="Optional Parameters">
+        <table border="0">
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Since</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td><code><a href="#excludes">&lt;excludes&gt;</a></code></td>
+            <td><code>List</code></td>
+            <td><code>0.6.2</code></td>
+            <td>A list of class files to exclude from instrumentation. May use
+wildcard characters (* and ?). When not specified nothing will be
+excluded.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#includes">&lt;includes&gt;</a></code></td>
+            <td><code>List</code></td>
+            <td><code>0.6.2</code></td>
+            <td>A list of class files to include in instrumentation. May use
+wildcard characters (* and ?). When not specified everything will
+be included.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#skip">&lt;skip&gt;</a></code></td>
+            <td><code>boolean</code></td>
+            <td><code>0.6.2</code></td>
+            <td>Flag used to suppress execution.<br/><strong>Default value is</strong>: <code>false</code>.<br/><strong>User property is</strong>: <code>jacoco.skip</code>.<br/></td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="Parameter Details">
+        <h4><strong><a name="excludes">&lt;excludes&gt;</a></strong></h4>
+        <div>A list of class files to exclude from instrumentation. May use
+wildcard characters (* and ?). When not specified nothing will be
+excluded.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.util.List</code></li>
+          <li><strong>Since</strong>: <code>0.6.2</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+        </ul><hr/><h4><strong><a name="includes">&lt;includes&gt;</a></strong></h4>
+        <div>A list of class files to include in instrumentation. May use
+wildcard characters (* and ?). When not specified everything will
+be included.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.util.List</code></li>
+          <li><strong>Since</strong>: <code>0.6.2</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+        </ul><hr/><h4><strong><a name="skip">&lt;skip&gt;</a></strong></h4>
+        <div>Flag used to suppress execution.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>boolean</code></li>
+          <li><strong>Since</strong>: <code>0.6.2</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>User Property</strong>: <code>jacoco.skip</code></li>
+          <li><strong>Default</strong>: <code>false</code></li>
+        </ul>
+      </subsection>
+    </section>
+  </body>
+</document>

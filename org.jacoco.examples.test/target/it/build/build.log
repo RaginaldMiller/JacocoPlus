@@ -1,0 +1,73 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------< org.jacoco:org.jacoco.examples.maven >----------------
+[INFO] Building JaCoCo Maven plug-in example 0.8.4
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco-maven-plugin:0.8.4:prepare-agent (default-prepare-agent) @ org.jacoco.examples.maven ---
+[INFO] argLine set to -javaagent:/Users/lexin/.m2/repository/org/jacoco/org.jacoco.agent/0.8.4/org.jacoco.agent-0.8.4-runtime.jar=destfile=/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.examples.test/target/it/build/target/jacoco.exec
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ org.jacoco.examples.maven ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.examples.test/target/it/build/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ org.jacoco.examples.maven ---
+[INFO] Changes detected - recompiling the module!
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[INFO] Compiling 8 source files to /Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.examples.test/target/it/build/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ org.jacoco.examples.maven ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.examples.test/target/it/build/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ org.jacoco.examples.maven ---
+[INFO] Changes detected - recompiling the module!
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[INFO] Compiling 2 source files to /Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.examples.test/target/it/build/target/test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ org.jacoco.examples.maven ---
+[INFO] Surefire report directory: /Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.examples.test/target/it/build/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Exception in thread "main" java.lang.SecurityException: Invalid signature file digest for Manifest main attributes
+	at sun.security.util.SignatureFileVerifier.processImpl(SignatureFileVerifier.java:317)
+	at sun.security.util.SignatureFileVerifier.process(SignatureFileVerifier.java:259)
+	at java.util.jar.JarVerifier.processEntry(JarVerifier.java:323)
+	at java.util.jar.JarVerifier.update(JarVerifier.java:234)
+	at java.util.jar.JarFile.initializeVerifier(JarFile.java:401)
+	at java.util.jar.JarFile.ensureInitialization(JarFile.java:632)
+	at java.util.jar.JavaUtilJarAccessImpl.ensureInitialization(JavaUtilJarAccessImpl.java:69)
+	at sun.misc.URLClassPath$JarLoader$2.getManifest(URLClassPath.java:993)
+	at java.net.URLClassLoader.defineClass(URLClassLoader.java:451)
+	at java.net.URLClassLoader.access$100(URLClassLoader.java:74)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:369)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:363)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:362)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:418)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:355)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:351)
+	at sun.instrument.InstrumentationImpl.loadClassAndStartAgent(InstrumentationImpl.java:304)
+	at sun.instrument.InstrumentationImpl.loadClassAndCallPremain(InstrumentationImpl.java:401)
+FATAL ERROR in native method: processing of -javaagent failed
+/bin/sh: line 1:  3119 Abort trap: 6           /Library/Java/JavaVirtualMachines/jdk1.8.0_301.jdk/Contents/Home/jre/bin/java -javaagent:/Users/lexin/.m2/repository/org/jacoco/org.jacoco.agent/0.8.4/org.jacoco.agent-0.8.4-runtime.jar=destfile=/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.examples.test/target/it/build/target/jacoco.exec -jar /Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.examples.test/target/it/build/target/surefire/surefirebooter7007055244982314314.jar /Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.examples.test/target/it/build/target/surefire/surefire7734139899262489799tmp /Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.examples.test/target/it/build/target/surefire/surefire_02761609251686183114tmp
+
+Results :
+
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.688 s
+[INFO] Finished at: 2021-09-16T15:26:28+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.12.4:test (default-test) on project org.jacoco.examples.maven: Execution default-test of goal org.apache.maven.plugins:maven-surefire-plugin:2.12.4:test failed: The forked VM terminated without saying properly goodbye. VM crash or System.exit called ? -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/PluginExecutionException

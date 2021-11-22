@@ -14,6 +14,7 @@ package org.jacoco.core.internal.diff;
 import org.eclipse.jgit.api.CreateBranchCommand;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.internal.storage.file.FileRepository;
 import org.eclipse.jgit.lib.*;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
@@ -72,6 +73,16 @@ public class GitAdapter {
             usernamePasswordCredentialsProvider = new UsernamePasswordCredentialsProvider(username,password);
         }
     }
+
+    public static void cloneSource(String gitUserName,String gitUserPsw,String gitUrl,String localPath,String branch) throws IOException, GitAPIException {
+        Repository localRepo = new FileRepository(localPath +File.separator + ".git");
+        Git git = new Git(localRepo);
+        File localPathFile = new File(localPath);
+        UsernamePasswordCredentialsProvider credentialsProvider = new UsernamePasswordCredentialsProvider(gitUserName,gitUserPsw);
+        Git.cloneRepository().setURI(gitUrl).setBranch(branch)
+                .setDirectory(new File(localPath)).setCredentialsProvider(credentialsProvider).call();
+    }
+
 
     /**
      * 获取指定分支的指定文件内容
@@ -145,6 +156,64 @@ public class GitAdapter {
         //  切换分支
         git.checkout().setCreateBranch(false).setName(branchName).call();
     }
+
+    /**
+     * 获取当前分支所有commitId
+     * @param branchName
+     * @return
+     * @throws GitAPIException
+     */
+    public List<String> getBranchCommitList(String branchName) throws GitAPIException {
+        List<String> commitList = new ArrayList<>();
+        checkOut(branchName);
+        Iterable<RevCommit> commits = git.log().call();
+        for (RevCommit commit : commits) {
+            commitList.add(commit.getName());
+        }
+        return commitList;
+    }
+    /**
+     * 获取当前分支所有RevCommit
+     * @param branchName
+     * @return
+     * @throws GitAPIException
+     */
+    public List<RevCommit> getBranchRevCommitList(String branchName) throws GitAPIException {
+        List<RevCommit> commitList = new ArrayList<>();
+        checkOut(branchName);
+        Iterable<RevCommit> commits = git.log().call();
+        for (RevCommit commit : commits) {
+            commitList.add(commit);
+        }
+        return commitList;
+    }
+
+    /**
+     *
+     * @param branchName  代码分支
+     * @param cmt1  commitID
+     * @param cmt2 commitID
+     * @return
+     * @throws GitAPIException
+     */
+    public boolean compareCommitId(String branchName,String cmt1,String cmt2) throws GitAPIException {
+        //String branch = BranchContext.getBranch();
+        List<String> branchCommitList = getBranchCommitList(branchName);
+        int oldCommitIdIndex = -1;
+        int newCommitIdIndex = -1;
+        for (int i = 0; i < branchCommitList.size(); i++) {
+            String commitId = branchCommitList.get(i);
+            if(commitId.contains(cmt1)){
+                newCommitIdIndex = i;
+            }
+            if(commitId.contains(cmt2)){
+                oldCommitIdIndex = i;
+            }
+        }
+        return oldCommitIdIndex > newCommitIdIndex;
+    }
+
+
 
     /**
      * 更新分支代码

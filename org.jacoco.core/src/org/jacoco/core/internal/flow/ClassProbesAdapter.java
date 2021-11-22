@@ -13,13 +13,17 @@ package org.jacoco.core.internal.flow;
 
 import org.jacoco.core.analysis.CoverageBuilder;
 import org.jacoco.core.internal.diff.ClassInfo;
+import org.jacoco.core.internal.diff.CommitIdContext;
 import org.jacoco.core.internal.diff.MethodInfo;
+import org.jacoco.core.internal.diff.MethodProbes;
 import org.jacoco.core.internal.instr.InstrSupport;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.commons.AnalyzerAdapter;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A {@link org.objectweb.asm.ClassVisitor} that calculates probes for every
@@ -69,9 +73,15 @@ public class ClassProbesAdapter extends ClassVisitor implements
 		final MethodProbesVisitor mv = cv.visitMethod(access, name, desc,
 				signature, exceptions);
         //	增量计算覆盖率
-        if (mv !=null && isContainsMethod(name, CoverageBuilder.classInfos)) {
+		String currentCommitId = CommitIdContext.getCommitId();
+		String methodId = this.name + "." + name + "." + desc;
+		//boolean isDiffMe = isDiffMethod(name, CoverageBuilder.classInfos);
+		boolean isDiffClass = isDiffClass( CoverageBuilder.classInfos);
+		int finalIndexStart = counter;
+		if (mv !=null && isDiffClass) {
+		//if (mv !=null) {
             methodProbes = mv;
-        } else {
+		} else {
             // We need to visit the method in any case, otherwise probe ids
             // are not reproducible
             methodProbes = EMPTY_METHOD_PROBES_VISITOR;
@@ -94,8 +104,31 @@ public class ClassProbesAdapter extends ClassVisitor implements
 				} else {
 					methodProbes.accept(this, probesAdapter);
 				}
+				// 保存方法探针结果数组下标数据  accept 之后counter++ 所以下面-1
+				saveMethodProbesIndex(currentCommitId,methodId, finalIndexStart,counter-1);
 			}
 		};
+	}
+
+	public void saveMethodProbesIndex(String currentCommitId,String methodId,int indexStart,int indexEnd){
+		Map<String, int[]> probeMap = MethodProbes.methodProbsMap.get(currentCommitId);
+		if(probeMap==null){
+			Map<String, int[]> newProbeMap = new HashMap<String, int[]>();
+			//String key = methodProbes.
+			int[] indexData = new int[2];
+			indexData[0] = indexStart;
+			indexData[1] = indexEnd;
+			newProbeMap.put(methodId,indexData);
+			MethodProbes.methodProbsMap.put(currentCommitId,newProbeMap);
+		}else {
+			int[] ints = probeMap.get(methodId);
+			if(ints==null){
+				int[] indexData = new int[2];
+				indexData[0] = indexStart;
+				indexData[1] = indexEnd;
+				probeMap.put(methodId,indexData);
+			}
+		}
 	}
 
 	@Override
@@ -109,8 +142,21 @@ public class ClassProbesAdapter extends ClassVisitor implements
 	public int nextId() {
 		return counter++;
 	}
-
-    private boolean isContainsMethod(String currentMethod, List<ClassInfo> classInfos) {
+	private boolean isDiffClass(List<ClassInfo> classInfos){
+		if (classInfos== null || classInfos.isEmpty()) {
+			return true;
+		}
+		for (ClassInfo classInfo : classInfos) {
+			String currentClassName = name.replaceAll("/",".");
+			String className = classInfo.getPackages() + "." + classInfo.getClassName();
+			// 以className开头的包括匿名内部类
+			if(currentClassName.startsWith(className)){
+				return true;
+			}
+		}
+		return false;
+	}
+    private boolean isDiffMethod(String currentMethod, List<ClassInfo> classInfos) {
         if (classInfos== null || classInfos.isEmpty()) {
             return true;
         }
@@ -121,6 +167,7 @@ public class ClassProbesAdapter extends ClassVisitor implements
                 for (MethodInfo methodInfo: classInfo.getMethodInfos()) {
                     String methodName = methodInfo.getMethodName();
                     if (currentMethod.equals(methodName)) {
+                    	//TODO 不严谨，方法重载没有排除在外
                         return true;
                     }
                 }

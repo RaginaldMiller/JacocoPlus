@@ -1,0 +1,13 @@
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.java8/src/org/jacoco/core/test/validation/java8/AnnotationOnLocalVariableTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.java8/src/org/jacoco/core/test/validation/java8/targets/InterfaceOnlyDefaultMethodsTarget.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.java8/src/org/jacoco/core/test/validation/java8/LambdaInInterfaceTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.java8/src/org/jacoco/core/test/validation/java8/targets/BadCycleInterfaceTarget.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.java8/src/org/jacoco/core/test/validation/java8/targets/InterfaceDefaultMethodsTarget.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.java8/src/org/jacoco/core/test/validation/java8/BadCycleInterfaceTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.java8/src/org/jacoco/core/test/validation/java8/targets/LambdaInInterfaceTarget.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.java8/src/org/jacoco/core/test/validation/java8/InterfaceOnlyDefaultMethodsTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.java8/src/org/jacoco/core/test/validation/java8/LambdaExpressionsTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.java8/src/org/jacoco/core/test/validation/java8/targets/LambdaExpressionsTarget.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.java8/src/org/jacoco/core/test/validation/java8/BootstrapMethodReferenceTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.java8/src/org/jacoco/core/test/validation/java8/targets/AnnotationOnLocalVariableTarget.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.java8/src/org/jacoco/core/test/validation/java8/InterfaceDefaultMethodsTest.java

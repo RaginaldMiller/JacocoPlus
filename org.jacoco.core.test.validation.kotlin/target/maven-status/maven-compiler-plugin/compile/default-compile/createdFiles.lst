@@ -1,0 +1,13 @@
+org/jacoco/core/test/validation/kotlin/KotlinDataClassTest.class
+org/jacoco/core/test/validation/kotlin/KotlinLateinitTest.class
+org/jacoco/core/test/validation/kotlin/KotlinNotNullOperatorTest.class
+org/jacoco/core/test/validation/kotlin/KotlinInlineTest.class
+org/jacoco/core/test/validation/kotlin/KotlinDefaultArgumentsTest.class
+org/jacoco/core/test/validation/kotlin/KotlinCoroutineTest.class
+org/jacoco/core/test/validation/kotlin/KotlinWhenExpressionTest.class
+org/jacoco/core/test/validation/kotlin/KotlinCallableReferenceTest.class
+org/jacoco/core/test/validation/kotlin/KotlinElvisOperatorTest.class
+org/jacoco/core/test/validation/kotlin/KotlinTopLevelFunctionTest.class
+org/jacoco/core/test/validation/kotlin/KotlinSafeCastTest.class
+org/jacoco/core/test/validation/kotlin/KotlinSafeCallOperatorTest.class
+org/jacoco/core/test/validation/kotlin/KotlinUnsafeCastOperatorTest.class

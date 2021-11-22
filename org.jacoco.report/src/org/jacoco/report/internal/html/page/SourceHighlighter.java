@@ -23,6 +23,7 @@ import org.jacoco.core.analysis.ILine;
 import org.jacoco.core.analysis.ISourceNode;
 import org.jacoco.core.internal.analysis.SourceFileCoverageImpl;
 import org.jacoco.core.internal.diff.ClassInfo;
+import org.jacoco.core.internal.diff.IncreceCodeRecord;
 import org.jacoco.report.internal.html.HTMLElement;
 import org.jacoco.report.internal.html.resources.Styles;
 
@@ -82,6 +83,10 @@ final class SourceHighlighter {
 			nr++;
 			renderCodeLine(pre, line, source.getLine(nr), nr,classPath);
 		}
+		//TODO 剔除掉无效行后存在增量行为0的情况
+		if(IncreceCodeRecord.classIncreceCoverMap.size() != 0 && IncreceCodeRecord.classIncreceCoverMap.get(classPath) != null){
+			System.out.println("类名：" + classPath + "  增量行：" + IncreceCodeRecord.classIncreceCoverMap.get(classPath)[0] + " ,覆盖行：" + IncreceCodeRecord.classIncreceCoverMap.get(classPath)[1]);
+		}
 	}
 
 	private void renderCodeLine(final HTMLElement pre, final String linesrc,
@@ -98,7 +103,11 @@ final class SourceHighlighter {
 				if (classPath.equals(tClassPath)) {
 					//	新增的类
 					if ("ADD".equalsIgnoreCase(classInfo.getType())) {
-						highlight(pre, line, lineNr).text("+ " + linesrc);
+						if(IncreceCodeRecord.isNoNeedTestLine(classPath,lineNr)){
+							highlight(pre, line, lineNr).text("免测" + linesrc);
+						}else{
+							highlight(pre, line, lineNr).text("+" + linesrc);
+						}
 						pre.text("\n");
 					} else {
 						//	修改的类
@@ -111,13 +120,20 @@ final class SourceHighlighter {
 							}
 						}
 						if (flag) {
-							highlight(pre, line, lineNr).text("+ " + linesrc);
+							if(IncreceCodeRecord.isNoNeedTestLine(classPath,lineNr)){
+								highlight(pre, line, lineNr).text("免测" + linesrc);
+							}else{
+								highlight(pre, line, lineNr).text("+" + linesrc);
+							}
 							pre.text("\n");
 						} else {
 							highlight(pre, line, lineNr).text(" " + linesrc);
 							pre.text("\n");
 						}
 					}
+					// 统计有效增量行
+					IncreceCodeRecord.getCodeLineStatus(classInfo ,line,linesrc,lineNr,classPath);
+
 					existFlag = false;
 					break;
 				}

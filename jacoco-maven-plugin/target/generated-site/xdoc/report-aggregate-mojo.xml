@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+  <properties>
+    <title>jacoco:report-aggregate</title>
+  </properties>
+  <body>
+    <section name="jacoco:report-aggregate">
+      <p><strong>Note</strong>:This goal should be used as a Maven report.</p>
+      <p><strong>Full name</strong>:</p>
+      <p>org.jacoco:jacoco-maven-plugin:0.8.4:report-aggregate</p>
+      <p><strong>Description</strong>:</p>
+      <div><p>Creates a structured code coverage report (HTML, XML, and CSV)
+from multiple projects within reactor. The report is created from
+all modules this project depends on. From those projects class and
+source files as well as JaCoCo execution data files will be
+collected. In addition execution data is collected from the project
+itself. This also allows to create coverage reports when tests are
+in separate projects than the code under test, for example in case
+of integration tests.</p>
+<p>Using the dependency scope allows to distinguish projects which
+contribute execution data but should not become part of the
+report:</p>
+<ul>
+<li><code>compile</code>, <code>runtime</code>,
+<code>provided</code>: Project source and execution data is
+included in the report.</li>
+<li><code>test</code>: Only execution data is considered for the
+report.</li>
+</ul></div>
+      <p><strong>Attributes</strong>:</p>
+      <ul>
+        <li>Requires a Maven project to be executed.</li>
+        <li>Since version: <code>0.7.7</code>.</li>
+      </ul>
+      <subsection name="Optional Parameters">
+        <table border="0">
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Since</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td><code><a href="#dataFileExcludes">&lt;dataFileExcludes&gt;</a></code></td>
+            <td><code>List</code></td>
+            <td><code>0.7.7</code></td>
+            <td>A list of execution data files to exclude from the report. May use
+wildcard characters (* and ?). When not specified nothing will be
+excluded.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#dataFileIncludes">&lt;dataFileIncludes&gt;</a></code></td>
+            <td><code>List</code></td>
+            <td><code>0.7.7</code></td>
+            <td>A list of execution data files to include in the report from each
+project. May use wildcard characters (* and ?). When not specified
+all *.exec files from the target folder will be included.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#excludes">&lt;excludes&gt;</a></code></td>
+            <td><code>List</code></td>
+            <td><code>0.7.7</code></td>
+            <td>A list of class files to exclude from the report. May use wildcard
+characters (* and ?). When not specified nothing will be excluded.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#footer">&lt;footer&gt;</a></code></td>
+            <td><code>String</code></td>
+            <td><code>0.7.7</code></td>
+            <td>Footer text used in HTML report pages.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#includes">&lt;includes&gt;</a></code></td>
+            <td><code>List</code></td>
+            <td><code>0.7.7</code></td>
+            <td>A list of class files to include in the report. May use wildcard
+characters (* and ?). When not specified everything will be
+included.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#outputDirectory">&lt;outputDirectory&gt;</a></code></td>
+            <td><code>File</code></td>
+            <td><code>0.7.7</code></td>
+            <td>Output directory for the reports. Note that this parameter is only
+relevant if the goal is run from the command line or from the
+default build lifecycle. If the goal is run indirectly as part of a
+site generation, the output directory configured in the Maven Site
+Plugin is used instead.<br/><strong>Default value is</strong>: <code>${project.reporting.outputDirectory}/jacoco-aggregate</code>.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#outputEncoding">&lt;outputEncoding&gt;</a></code></td>
+            <td><code>String</code></td>
+            <td><code>0.7.7</code></td>
+            <td>Encoding of the generated reports.<br/><strong>Default value is</strong>: <code>UTF-8</code>.<br/><strong>User property is</strong>: <code>project.reporting.outputEncoding</code>.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#skip">&lt;skip&gt;</a></code></td>
+            <td><code>boolean</code></td>
+            <td><code>0.7.7</code></td>
+            <td>Flag used to suppress execution.<br/><strong>Default value is</strong>: <code>false</code>.<br/><strong>User property is</strong>: <code>jacoco.skip</code>.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#sourceEncoding">&lt;sourceEncoding&gt;</a></code></td>
+            <td><code>String</code></td>
+            <td><code>0.7.7</code></td>
+            <td>Encoding of the source files.<br/><strong>Default value is</strong>: <code>UTF-8</code>.<br/><strong>User property is</strong>: <code>project.build.sourceEncoding</code>.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#title">&lt;title&gt;</a></code></td>
+            <td><code>String</code></td>
+            <td><code>0.7.7</code></td>
+            <td>Name of the root node HTML report pages.<br/><strong>Default value is</strong>: <code>${project.name}</code>.<br/></td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="Parameter Details">
+        <h4><strong><a name="dataFileExcludes">&lt;dataFileExcludes&gt;</a></strong></h4>
+        <div>A list of execution data files to exclude from the report. May use
+wildcard characters (* and ?). When not specified nothing will be
+excluded.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.util.List</code></li>
+          <li><strong>Since</strong>: <code>0.7.7</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+        </ul><hr/><h4><strong><a name="dataFileIncludes">&lt;dataFileIncludes&gt;</a></strong></h4>
+        <div>A list of execution data files to include in the report from each
+project. May use wildcard characters (* and ?). When not specified
+all *.exec files from the target folder will be included.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.util.List</code></li>
+          <li><strong>Since</strong>: <code>0.7.7</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+        </ul><hr/><h4><strong><a name="excludes">&lt;excludes&gt;</a></strong></h4>
+        <div>A list of class files to exclude from the report. May use wildcard
+characters (* and ?). When not specified nothing will be excluded.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.util.List</code></li>
+          <li><strong>Since</strong>: <code>0.7.7</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+        </ul><hr/><h4><strong><a name="footer">&lt;footer&gt;</a></strong></h4>
+        <div>Footer text used in HTML report pages.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.lang.String</code></li>
+          <li><strong>Since</strong>: <code>0.7.7</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+        </ul><hr/><h4><strong><a name="includes">&lt;includes&gt;</a></strong></h4>
+        <div>A list of class files to include in the report. May use wildcard
+characters (* and ?). When not specified everything will be
+included.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.util.List</code></li>
+          <li><strong>Since</strong>: <code>0.7.7</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+        </ul><hr/><h4><strong><a name="outputDirectory">&lt;outputDirectory&gt;</a></strong></h4>
+        <div>Output directory for the reports. Note that this parameter is only
+relevant if the goal is run from the command line or from the
+default build lifecycle. If the goal is run indirectly as part of a
+site generation, the output directory configured in the Maven Site
+Plugin is used instead.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.io.File</code></li>
+          <li><strong>Since</strong>: <code>0.7.7</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>Default</strong>: <code>${project.reporting.outputDirectory}/jacoco-aggregate</code></li>
+        </ul><hr/><h4><strong><a name="outputEncoding">&lt;outputEncoding&gt;</a></strong></h4>
+        <div>Encoding of the generated reports.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.lang.String</code></li>
+          <li><strong>Since</strong>: <code>0.7.7</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>User Property</strong>: <code>project.reporting.outputEncoding</code></li>
+          <li><strong>Default</strong>: <code>UTF-8</code></li>
+        </ul><hr/><h4><strong><a name="skip">&lt;skip&gt;</a></strong></h4>
+        <div>Flag used to suppress execution.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>boolean</code></li>
+          <li><strong>Since</strong>: <code>0.7.7</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>User Property</strong>: <code>jacoco.skip</code></li>
+          <li><strong>Default</strong>: <code>false</code></li>
+        </ul><hr/><h4><strong><a name="sourceEncoding">&lt;sourceEncoding&gt;</a></strong></h4>
+        <div>Encoding of the source files.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.lang.String</code></li>
+          <li><strong>Since</strong>: <code>0.7.7</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>User Property</strong>: <code>project.build.sourceEncoding</code></li>
+          <li><strong>Default</strong>: <code>UTF-8</code></li>
+        </ul><hr/><h4><strong><a name="title">&lt;title&gt;</a></strong></h4>
+        <div>Name of the root node HTML report pages.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.lang.String</code></li>
+          <li><strong>Since</strong>: <code>0.7.7</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>Default</strong>: <code>${project.name}</code></li>
+        </ul>
+      </subsection>
+    </section>
+  </body>
+</document>

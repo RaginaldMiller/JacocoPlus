@@ -1,0 +1,13 @@
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.cli/src/org/jacoco/cli/internal/commands/Dump.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.cli/src/org/jacoco/cli/internal/commands/AllCommands.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.cli/src/org/jacoco/cli/internal/commands/ClassInfo.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.cli/src/org/jacoco/cli/internal/commands/Instrument.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.cli/src/org/jacoco/cli/internal/CommandHandler.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.cli/src/org/jacoco/cli/internal/commands/Version.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.cli/src/org/jacoco/cli/internal/Main.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.cli/src/org/jacoco/cli/internal/Command.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.cli/src/org/jacoco/cli/internal/commands/Report.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.cli/src/org/jacoco/cli/internal/commands/ExecInfo.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.cli/src/org/jacoco/cli/internal/commands/Merge.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.cli/src/org/jacoco/cli/internal/XmlDocumentation.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.cli/src/org/jacoco/cli/internal/CommandParser.java

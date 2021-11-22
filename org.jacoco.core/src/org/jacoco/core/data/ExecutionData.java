@@ -11,9 +11,14 @@
  *******************************************************************************/
 package org.jacoco.core.data;
 
+import org.jacoco.core.analysis.CoverageBuilder;
+import org.jacoco.core.internal.diff.*;
+
 import static java.lang.String.format;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Execution data for a single Java class. While instances are immutable care
@@ -27,6 +32,16 @@ public final class ExecutionData {
 	private final String name;
 
 	private final boolean[] probes;
+
+	public String commitId;
+
+	public String getCommitId() {
+		return commitId;
+	}
+
+	public void setCommitId(String commitId) {
+		this.commitId = commitId;
+	}
 
 	/**
 	 * Creates a new {@link ExecutionData} object with the given probe data.
@@ -163,6 +178,105 @@ public final class ExecutionData {
 				probes[i] = flag;
 			}
 		}
+	}
+
+	public void mergeClassByMethod(final ExecutionData other){
+
+		String name = other.getName();
+		String currentCommitId = CommitIdContext.getCommitId();
+		Map<String, int[]> newMethodProMap = MethodProbes.methodProbsMap.get(commitId);
+		Map<String, int[]> oldMethodProMap = MethodProbes.methodProbsMap.get(currentCommitId);
+		// methodProMap 是覆盖率文件所有方法探针数据
+		// 先判断当前类在两个map中是否存在
+		// 新 老  有 有 ==》 合并
+		// 新 老  有 无 ==》 不动 以新文件为主
+		// 新 老  无 有 ==》 合并
+		// 新 老  无 无 ==》 不动 以新文件为主
+		// 合并逻辑： 遍历类下的方法列表，判断方法是否为变更方法，若是，以新文件为主，否则合并未变更的方法探针数组
+		boolean oldExist = false;
+		if(oldMethodProMap != null && containsShortKey(oldMethodProMap,name)){
+			oldExist = true;
+		}
+		if(oldExist){
+			for (Map.Entry<String, int[]> entry : oldMethodProMap.entrySet()) {
+				String methodKey = entry.getKey();
+				String methodName = methodKey.split("\\.")[1];
+				if(methodKey.startsWith(name)){
+					int[] newMethodProbes = newMethodProMap.get(methodKey);
+					int[] oldMethodProbes = oldMethodProMap.get(methodKey);
+					// 理论上不可能是空 除非analyzeAll方法没有运行完成，导致数据缺失！！！ 深坑
+					if(newMethodProbes!=null && !isDiffMethod(methodName,CoverageBuilder.classInfos)){
+						//不为空 且 不是变更方法 merge ==》 变更方法。不动
+						int newArrayLenght = newMethodProbes[1] - newMethodProbes[0] + 1;
+						int oldArrayLenght = oldMethodProbes[1] - oldMethodProbes[0] + 1;
+						if(oldMethodProbes != null && newArrayLenght == oldArrayLenght){
+							int newStartIndex = newMethodProbes[0];
+							int oldStartIndex = oldMethodProbes[0];
+							for(int i = 0;i < newArrayLenght ;i++){
+								try {
+									this.probes[newStartIndex+i] = (this.probes[newStartIndex+i] | other.probes[oldStartIndex + i]);
+								}catch (Exception e){
+									e.printStackTrace();
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+
+
+//		for (Map.Entry<String, int[]> entry : methodProMap1.entrySet()) {
+//			// class.method.params
+//			String methodKey = entry.getKey();
+//			String methodName = methodKey.split("\\.")[1];
+//			// 变更方法探针不动。合并未变更方法探针
+//			if(methodKey.contains(name) && !isDiffMethod(methodName, CoverageBuilder.classInfos)){
+//				System.out.println("合并方法:::::::::::::::::::::::::::" + methodKey);
+//				// 执行合并操作
+//				int[] newProbes = entry.getValue();
+//				int[] oldProbes = methodProMap2.get(methodKey);
+//				int newArrayLenght = newProbes[1] - newProbes[0] + 1;
+//				int oldArrayLenght = oldProbes[1] - oldProbes[0] + 1;
+//				if(oldProbes != null && newArrayLenght == oldArrayLenght){
+//					int newStartIndex = newProbes[0];
+//					int oldStartIndex = oldProbes[0];
+//					for(int i = 0;i < newArrayLenght ;i++){
+//						this.probes[newStartIndex+i] = (this.probes[newStartIndex+i] | other.probes[oldStartIndex + i]);
+//					}
+//				}
+//			}
+//		}
+
+
+	}
+	private boolean containsShortKey(Map<String, int[]> methodProMap,String className){
+		for (Map.Entry<String, int[]> entry : methodProMap.entrySet()) {
+			if(entry.getKey().contains(className)){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean isDiffMethod(String currentMethod, List<ClassInfo> classInfos) {
+		if (classInfos== null || classInfos.isEmpty()) {
+			return true;
+		}
+		String currentClassName = name.replaceAll("/",".");
+		for (ClassInfo classInfo : classInfos) {
+			String className = classInfo.getPackages() + "." + classInfo.getClassName();
+			if (currentClassName.equals(className)) {
+				for (MethodInfo methodInfo: classInfo.getMethodInfos()) {
+					String methodName = methodInfo.getMethodName();
+					if (currentMethod.equals(methodName)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 	/**

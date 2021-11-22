@@ -26,12 +26,18 @@
 
   <properties>
     <maven.deploy.skip>true</maven.deploy.skip>
+    <bytecode.version>8</bytecode.version>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>org.jacoco.report</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>transmittable-thread-local</artifactId>
+      <version>2.12.1</version>
     </dependency>
   </dependencies>
 

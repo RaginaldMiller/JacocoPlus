@@ -1,0 +1,17 @@
+/Users/lexin/Desktop/dev/JacocoPlus/jacoco-maven-plugin/src/org/jacoco/maven/DumpMojo.java
+/Users/lexin/Desktop/dev/JacocoPlus/jacoco-maven-plugin/src/org/jacoco/maven/RestoreMojo.java
+/Users/lexin/Desktop/dev/JacocoPlus/jacoco-maven-plugin/src/org/jacoco/maven/ReportSupport.java
+/Users/lexin/Desktop/dev/JacocoPlus/jacoco-maven-plugin/src/org/jacoco/maven/AgentMojo.java
+/Users/lexin/Desktop/dev/JacocoPlus/jacoco-maven-plugin/src/org/jacoco/maven/ReportMojo.java
+/Users/lexin/Desktop/dev/JacocoPlus/jacoco-maven-plugin/src/org/jacoco/maven/AbstractReportMojo.java
+/Users/lexin/Desktop/dev/JacocoPlus/jacoco-maven-plugin/src/org/jacoco/maven/ReportAggregateMojo.java
+/Users/lexin/Desktop/dev/JacocoPlus/jacoco-maven-plugin/src/org/jacoco/maven/FileFilter.java
+/Users/lexin/Desktop/dev/JacocoPlus/jacoco-maven-plugin/src/org/jacoco/maven/CheckMojo.java
+/Users/lexin/Desktop/dev/JacocoPlus/jacoco-maven-plugin/src/org/jacoco/maven/ReportITMojo.java
+/Users/lexin/Desktop/dev/JacocoPlus/jacoco-maven-plugin/src/org/jacoco/maven/AgentITMojo.java
+/Users/lexin/Desktop/dev/JacocoPlus/jacoco-maven-plugin/src/org/jacoco/maven/InstrumentMojo.java
+/Users/lexin/Desktop/dev/JacocoPlus/jacoco-maven-plugin/target/generated-sources/plugin/HelpMojo.java
+/Users/lexin/Desktop/dev/JacocoPlus/jacoco-maven-plugin/src/org/jacoco/maven/RuleConfiguration.java
+/Users/lexin/Desktop/dev/JacocoPlus/jacoco-maven-plugin/src/org/jacoco/maven/MergeMojo.java
+/Users/lexin/Desktop/dev/JacocoPlus/jacoco-maven-plugin/src/org/jacoco/maven/AbstractAgentMojo.java
+/Users/lexin/Desktop/dev/JacocoPlus/jacoco-maven-plugin/src/org/jacoco/maven/AbstractJacocoMojo.java

@@ -1,0 +1,14 @@
+org/jacoco/cli/internal/commands/DumpTest$1.class
+org/jacoco/cli/internal/commands/ExecInfoTest.class
+org/jacoco/cli/internal/commands/VersionTest.class
+org/jacoco/cli/internal/CommandTestBase.class
+org/jacoco/cli/internal/commands/DumpTest$2.class
+org/jacoco/cli/internal/commands/ClassInfoTest.class
+org/jacoco/cli/internal/commands/DumpTest.class
+org/jacoco/cli/internal/commands/InstrumentTest$1.class
+org/jacoco/cli/internal/commands/ReportTest.class
+org/jacoco/cli/internal/commands/MergeTest.class
+org/jacoco/cli/internal/MainTest.class
+org/jacoco/cli/internal/XmlDocumentationTest$1.class
+org/jacoco/cli/internal/XmlDocumentationTest.class
+org/jacoco/cli/internal/commands/InstrumentTest.class

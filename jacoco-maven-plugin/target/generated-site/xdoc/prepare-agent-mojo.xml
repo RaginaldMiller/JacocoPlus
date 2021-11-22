@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+  <properties>
+    <title>jacoco:prepare-agent</title>
+  </properties>
+  <body>
+    <section name="jacoco:prepare-agent">
+      <p><strong>Full name</strong>:</p>
+      <p>org.jacoco:jacoco-maven-plugin:0.8.4:prepare-agent</p>
+      <p><strong>Description</strong>:</p>
+      <div><p>Prepares a property pointing to the JaCoCo runtime agent that
+can be passed as a VM argument to the application under test.
+Depending on the project packaging type by default a property with
+the following name is set:</p>
+<ul>
+<li>tycho.testArgLine for packaging type eclipse-test-plugin
+and</li>
+<li>argLine otherwise.</li>
+</ul>
+<p>If your project already defines VM arguments for test execution,
+be sure that they will include property defined by JaCoCo.</p>
+<p>One of the ways to do this in case of maven-surefire-plugin - is
+to use syntax for <a
+href="http://maven.apache.org/surefire/maven-surefire-plugin/faq.html#late-property-evaluation">late
+property evaluation</a>:</p>
+<pre>
+  &lt;plugin&gt;
+    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+    &lt;configuration&gt;
+      &lt;argLine&gt;@{argLine} -your -extra -arguments&lt;/argLine&gt;
+    &lt;/configuration&gt;
+  &lt;/plugin&gt;
+</pre>
+
+<p>You can define empty property to avoid JVM startup error
+<code>Could not find or load main class @{argLine}</code> when
+using late property evaluation and jacoco-maven-plugin not
+executed.</p>
+<p>Another way is to define "argLine" as a Maven property rather
+than as part of the configuration of maven-surefire-plugin:</p>
+<pre>
+  &lt;properties&gt;
+    &lt;argLine&gt;-your -extra -arguments&lt;/argLine&gt;
+  &lt;/properties&gt;
+  ...
+  &lt;plugin&gt;
+    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+    &lt;configuration&gt;
+      &lt;!-- no argLine here --&gt;
+    &lt;/configuration&gt;
+  &lt;/plugin&gt;
+</pre>
+
+<p>Resulting coverage information is collected during execution and
+by default written to a file when the process terminates.</p></div>
+      <p><strong>Attributes</strong>:</p>
+      <ul>
+        <li>Requires a Maven project to be executed.</li>
+        <li>Requires dependency resolution of artifacts in scope: <code>runtime</code>.</li>
+        <li>Since version: <code>0.5.3</code>.</li>
+        <li>Binds by default to the <a href="http://maven.apache.org/ref/current/maven-core/lifecycles.html">lifecycle phase</a>: <code>initialize</code>.</li>
+      </ul>
+      <subsection name="Optional Parameters">
+        <table border="0">
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Since</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td><code><a href="#address">&lt;address&gt;</a></code></td>
+            <td><code>String</code></td>
+            <td><code>0.5.3</code></td>
+            <td>IP address or hostname to bind to when the output method is
+tcpserver or connect to when the output method is tcpclient. In
+tcpserver mode the value "*" causes the agent to accept connections
+on any local address.<br/><strong>User property is</strong>: <code>jacoco.address</code>.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#append">&lt;append&gt;</a></code></td>
+            <td><code>Boolean</code></td>
+            <td><code>0.5.3</code></td>
+            <td>If set to true and the execution data file already exists, coverage
+data is appended to the existing file. If set to false, an existing
+execution data file will be replaced.<br/><strong>User property is</strong>: <code>jacoco.append</code>.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#classDumpDir">&lt;classDumpDir&gt;</a></code></td>
+            <td><code>File</code></td>
+            <td><code>0.5.3</code></td>
+            <td>If a directory is specified for this parameter the JaCoCo agent
+dumps all class files it processes to the given location. This can
+be useful for debugging purposes or in case of dynamically created
+classes for example when scripting engines are used.<br/><strong>User property is</strong>: <code>jacoco.classDumpDir</code>.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#destFile">&lt;destFile&gt;</a></code></td>
+            <td><code>File</code></td>
+            <td><code>0.5.3</code></td>
+            <td>Path to the output file for execution data.<br/><strong>Default value is</strong>: <code>${project.build.directory}/jacoco.exec</code>.<br/><strong>User property is</strong>: <code>jacoco.destFile</code>.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#dumpOnExit">&lt;dumpOnExit&gt;</a></code></td>
+            <td><code>Boolean</code></td>
+            <td><code>0.5.3</code></td>
+            <td>If set to true coverage data will be written on VM shutdown.<br/><strong>User property is</strong>: <code>jacoco.dumpOnExit</code>.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#exclClassLoaders">&lt;exclClassLoaders&gt;</a></code></td>
+            <td><code>String</code></td>
+            <td><code>0.5.3</code></td>
+            <td>A list of class loader names, that should be excluded from
+execution analysis. The list entries are separated by a colon (:)
+and may use wildcard characters (* and ?). This option might be
+required in case of special frameworks that conflict with JaCoCo
+code instrumentation, in particular class loaders that do not have
+access to the Java runtime classes.<br/><strong>User property is</strong>: <code>jacoco.exclClassLoaders</code>.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#excludes">&lt;excludes&gt;</a></code></td>
+            <td><code>List</code></td>
+            <td><code>0.5.3</code></td>
+            <td>A list of class names to exclude from instrumentation. May use
+wildcard characters (* and ?). When not specified nothing will be
+excluded.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#inclBootstrapClasses">&lt;inclBootstrapClasses&gt;</a></code></td>
+            <td><code>Boolean</code></td>
+            <td><code>0.5.3</code></td>
+            <td>Specifies whether also classes from the bootstrap classloader
+should be instrumented. Use this feature with caution, it needs
+heavy includes/excludes tuning.<br/><strong>User property is</strong>: <code>jacoco.inclBootstrapClasses</code>.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#inclNoLocationClasses">&lt;inclNoLocationClasses&gt;</a></code></td>
+            <td><code>Boolean</code></td>
+            <td><code>0.5.3</code></td>
+            <td>Specifies whether classes without source location should be
+instrumented.<br/><strong>User property is</strong>: <code>jacoco.inclNoLocationClasses</code>.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#includes">&lt;includes&gt;</a></code></td>
+            <td><code>List</code></td>
+            <td><code>0.5.3</code></td>
+            <td>A list of class names to include in instrumentation. May use
+wildcard characters (* and ?). When not specified everything will
+be included.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#jmx">&lt;jmx&gt;</a></code></td>
+            <td><code>Boolean</code></td>
+            <td><code>0.5.3</code></td>
+            <td>If set to true the agent exposes functionality via JMX.<br/><strong>User property is</strong>: <code>jacoco.jmx</code>.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#output">&lt;output&gt;</a></code></td>
+            <td><code>String</code></td>
+            <td><code>0.5.3</code></td>
+            <td>Output method to use for writing coverage data. Valid options are: 
+<ul>
+<li>file: At VM termination execution data is written to a
+file.</li>
+<li>tcpserver: The agent listens for incoming connections on the
+TCP port specified by the <code>address</code> and
+<code>port</code>. Execution data is written to this TCP
+connection.</li>
+<li>tcpclient: At startup the agent connects to the TCP port
+specified by the <code>address</code> and <code>port</code>.
+Execution data is written to this TCP connection.</li>
+<li>none: Do not produce any output.</li>
+</ul><br/><strong>User property is</strong>: <code>jacoco.output</code>.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#port">&lt;port&gt;</a></code></td>
+            <td><code>Integer</code></td>
+            <td><code>0.5.3</code></td>
+            <td>Port to bind to when the output method is tcpserver or connect to
+when the output method is tcpclient. In tcpserver mode the port
+must be available, which means that if multiple JaCoCo agents
+should run on the same machine, different ports have to be
+specified.<br/><strong>User property is</strong>: <code>jacoco.port</code>.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#propertyName">&lt;propertyName&gt;</a></code></td>
+            <td><code>String</code></td>
+            <td><code>0.5.3</code></td>
+            <td>Allows to specify property which will contains settings for JaCoCo
+Agent. If not specified, then "argLine" would be used for "jar"
+packaging and "tycho.testArgLine" for "eclipse-test-plugin".<br/><strong>User property is</strong>: <code>jacoco.propertyName</code>.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#sessionId">&lt;sessionId&gt;</a></code></td>
+            <td><code>String</code></td>
+            <td><code>0.5.3</code></td>
+            <td>A session identifier that is written with the execution data.
+Without this parameter a random identifier is created by the agent.<br/><strong>User property is</strong>: <code>jacoco.sessionId</code>.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#skip">&lt;skip&gt;</a></code></td>
+            <td><code>boolean</code></td>
+            <td><code>0.5.3</code></td>
+            <td>Flag used to suppress execution.<br/><strong>Default value is</strong>: <code>false</code>.<br/><strong>User property is</strong>: <code>jacoco.skip</code>.<br/></td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="Parameter Details">
+        <h4><strong><a name="address">&lt;address&gt;</a></strong></h4>
+        <div>IP address or hostname to bind to when the output method is
+tcpserver or connect to when the output method is tcpclient. In
+tcpserver mode the value "*" causes the agent to accept connections
+on any local address.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.lang.String</code></li>
+          <li><strong>Since</strong>: <code>0.5.3</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>User Property</strong>: <code>jacoco.address</code></li>
+        </ul><hr/><h4><strong><a name="append">&lt;append&gt;</a></strong></h4>
+        <div>If set to true and the execution data file already exists, coverage
+data is appended to the existing file. If set to false, an existing
+execution data file will be replaced.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.lang.Boolean</code></li>
+          <li><strong>Since</strong>: <code>0.5.3</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>User Property</strong>: <code>jacoco.append</code></li>
+        </ul><hr/><h4><strong><a name="classDumpDir">&lt;classDumpDir&gt;</a></strong></h4>
+        <div>If a directory is specified for this parameter the JaCoCo agent
+dumps all class files it processes to the given location. This can
+be useful for debugging purposes or in case of dynamically created
+classes for example when scripting engines are used.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.io.File</code></li>
+          <li><strong>Since</strong>: <code>0.5.3</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>User Property</strong>: <code>jacoco.classDumpDir</code></li>
+        </ul><hr/><h4><strong><a name="destFile">&lt;destFile&gt;</a></strong></h4>
+        <div>Path to the output file for execution data.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.io.File</code></li>
+          <li><strong>Since</strong>: <code>0.5.3</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>User Property</strong>: <code>jacoco.destFile</code></li>
+          <li><strong>Default</strong>: <code>${project.build.directory}/jacoco.exec</code></li>
+        </ul><hr/><h4><strong><a name="dumpOnExit">&lt;dumpOnExit&gt;</a></strong></h4>
+        <div>If set to true coverage data will be written on VM shutdown.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.lang.Boolean</code></li>
+          <li><strong>Since</strong>: <code>0.5.3</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>User Property</strong>: <code>jacoco.dumpOnExit</code></li>
+        </ul><hr/><h4><strong><a name="exclClassLoaders">&lt;exclClassLoaders&gt;</a></strong></h4>
+        <div>A list of class loader names, that should be excluded from
+execution analysis. The list entries are separated by a colon (:)
+and may use wildcard characters (* and ?). This option might be
+required in case of special frameworks that conflict with JaCoCo
+code instrumentation, in particular class loaders that do not have
+access to the Java runtime classes.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.lang.String</code></li>
+          <li><strong>Since</strong>: <code>0.5.3</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>User Property</strong>: <code>jacoco.exclClassLoaders</code></li>
+        </ul><hr/><h4><strong><a name="excludes">&lt;excludes&gt;</a></strong></h4>
+        <div>A list of class names to exclude from instrumentation. May use
+wildcard characters (* and ?). When not specified nothing will be
+excluded.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.util.List</code></li>
+          <li><strong>Since</strong>: <code>0.5.3</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+        </ul><hr/><h4><strong><a name="inclBootstrapClasses">&lt;inclBootstrapClasses&gt;</a></strong></h4>
+        <div>Specifies whether also classes from the bootstrap classloader
+should be instrumented. Use this feature with caution, it needs
+heavy includes/excludes tuning.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.lang.Boolean</code></li>
+          <li><strong>Since</strong>: <code>0.5.3</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>User Property</strong>: <code>jacoco.inclBootstrapClasses</code></li>
+        </ul><hr/><h4><strong><a name="inclNoLocationClasses">&lt;inclNoLocationClasses&gt;</a></strong></h4>
+        <div>Specifies whether classes without source location should be
+instrumented.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.lang.Boolean</code></li>
+          <li><strong>Since</strong>: <code>0.5.3</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>User Property</strong>: <code>jacoco.inclNoLocationClasses</code></li>
+        </ul><hr/><h4><strong><a name="includes">&lt;includes&gt;</a></strong></h4>
+        <div>A list of class names to include in instrumentation. May use
+wildcard characters (* and ?). When not specified everything will
+be included.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.util.List</code></li>
+          <li><strong>Since</strong>: <code>0.5.3</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+        </ul><hr/><h4><strong><a name="jmx">&lt;jmx&gt;</a></strong></h4>
+        <div>If set to true the agent exposes functionality via JMX.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.lang.Boolean</code></li>
+          <li><strong>Since</strong>: <code>0.5.3</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>User Property</strong>: <code>jacoco.jmx</code></li>
+        </ul><hr/><h4><strong><a name="output">&lt;output&gt;</a></strong></h4>
+        <div>Output method to use for writing coverage data. Valid options are: 
+<ul>
+<li>file: At VM termination execution data is written to a
+file.</li>
+<li>tcpserver: The agent listens for incoming connections on the
+TCP port specified by the <code>address</code> and
+<code>port</code>. Execution data is written to this TCP
+connection.</li>
+<li>tcpclient: At startup the agent connects to the TCP port
+specified by the <code>address</code> and <code>port</code>.
+Execution data is written to this TCP connection.</li>
+<li>none: Do not produce any output.</li>
+</ul></div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.lang.String</code></li>
+          <li><strong>Since</strong>: <code>0.5.3</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>User Property</strong>: <code>jacoco.output</code></li>
+        </ul><hr/><h4><strong><a name="port">&lt;port&gt;</a></strong></h4>
+        <div>Port to bind to when the output method is tcpserver or connect to
+when the output method is tcpclient. In tcpserver mode the port
+must be available, which means that if multiple JaCoCo agents
+should run on the same machine, different ports have to be
+specified.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.lang.Integer</code></li>
+          <li><strong>Since</strong>: <code>0.5.3</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>User Property</strong>: <code>jacoco.port</code></li>
+        </ul><hr/><h4><strong><a name="propertyName">&lt;propertyName&gt;</a></strong></h4>
+        <div>Allows to specify property which will contains settings for JaCoCo
+Agent. If not specified, then "argLine" would be used for "jar"
+packaging and "tycho.testArgLine" for "eclipse-test-plugin".</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.lang.String</code></li>
+          <li><strong>Since</strong>: <code>0.5.3</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>User Property</strong>: <code>jacoco.propertyName</code></li>
+        </ul><hr/><h4><strong><a name="sessionId">&lt;sessionId&gt;</a></strong></h4>
+        <div>A session identifier that is written with the execution data.
+Without this parameter a random identifier is created by the agent.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.lang.String</code></li>
+          <li><strong>Since</strong>: <code>0.5.3</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>User Property</strong>: <code>jacoco.sessionId</code></li>
+        </ul><hr/><h4><strong><a name="skip">&lt;skip&gt;</a></strong></h4>
+        <div>Flag used to suppress execution.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>boolean</code></li>
+          <li><strong>Since</strong>: <code>0.5.3</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>User Property</strong>: <code>jacoco.skip</code></li>
+          <li><strong>Default</strong>: <code>false</code></li>
+        </ul>
+      </subsection>
+    </section>
+  </body>
+</document>

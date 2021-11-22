@@ -1,0 +1,5 @@
+org/jacoco/examples/ExecDumpTest.class
+org/jacoco/examples/ConsoleOutput.class
+org/jacoco/examples/CoreTutorialTest.class
+org/jacoco/examples/ClassInfoTest.class
+org/jacoco/examples/MBeanClientTest.class

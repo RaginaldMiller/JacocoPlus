@@ -131,6 +131,7 @@
     <copyright.years>${project.inceptionYear}, 2019</copyright.years>
 
     <bytecode.version>1.5</bytecode.version>
+<!--    <bytecode.version>8</bytecode.version>-->
     <maven.compiler.source>${bytecode.version}</maven.compiler.source>
     <maven.compiler.target>${bytecode.version}</maven.compiler.target>
 

@@ -1,0 +1,15 @@
+org/jacoco/ant/DumpTaskTest.class
+org/jacoco/ant/AgentTaskTest.class
+org/jacoco/ant/DumpExecClassNames.class
+org/jacoco/ant/CreateExecFiles.class
+org/jacoco/ant/AntResourcesLocatorTest.class
+org/jacoco/ant/ReportTaskLocaleTest.class
+org/jacoco/ant/MergeTaskTest.class
+org/jacoco/ant/InstrumentTaskTest.class
+org/jacoco/ant/ReportTaskTest.class
+org/jacoco/ant/CoverageTaskTest.class
+org/jacoco/ant/RemoveDebugInfos.class
+org/jacoco/ant/TestTarget.class
+TestTargetInDefault.class
+org/jacoco/ant/AntFilesLocatorTest.class
+org/jacoco/ant/DumpTaskWithServerTest.class

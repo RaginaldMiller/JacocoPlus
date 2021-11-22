@@ -1,0 +1,13 @@
+org/jacoco/examples/ExecutionDataServer$Handler.class
+org/jacoco/examples/CoreTutorial.class
+org/jacoco/examples/ExecutionDataClient.class
+org/jacoco/examples/CoreTutorial$MemoryClassLoader.class
+org/jacoco/examples/ExecutionDataServer.class
+org/jacoco/examples/ExecDump.class
+org/jacoco/examples/CoreTutorial$TestTarget.class
+org/jacoco/examples/ExecDump$2.class
+org/jacoco/examples/MBeanClient.class
+org/jacoco/examples/MBeanClient$IProxy.class
+org/jacoco/examples/ClassInfo.class
+org/jacoco/examples/ExecDump$1.class
+org/jacoco/examples/ReportGenerator.class

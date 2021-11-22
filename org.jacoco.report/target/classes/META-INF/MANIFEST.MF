@@ -1,0 +1,59 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: org.jacoco.report
+Bnd-LastModified: 1637228391423
+Build-Jdk: 1.8.0_301
+Built-By: lexin
+Bundle-Description: JaCoCo Report
+Bundle-License: http://www.eclipse.org/legal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: JaCoCo Report
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-SymbolicName: org.jacoco.report
+Bundle-Vendor: Mountainminds GmbH & Co. KG
+Bundle-Version: 0.8.4.202111180939
+Created-By: Apache Maven Bundle Plugin
+Eclipse-SourceReferences: scm:git:git://github.com/jacoco/jacoco.git;pat
+ h="org.jacoco.report";commitId=d543d08ff7ace45f8284c063ff198857d95303f0
+Export-Package: org.jacoco.report.internal;x-internal:=true;version="0.8
+ .4";uses:="org.jacoco.core.analysis,org.jacoco.report",org.jacoco.repor
+ t.internal.html;x-internal:=true;version="0.8.4";uses:="org.jacoco.core
+ .analysis,org.jacoco.report,org.jacoco.report.internal,org.jacoco.repor
+ t.internal.html.index,org.jacoco.report.internal.html.page,org.jacoco.r
+ eport.internal.html.resources,org.jacoco.report.internal.html.table,org
+ .jacoco.report.internal.xml",org.jacoco.report.internal.html.index;x-in
+ ternal:=true;version="0.8.4";uses:="org.jacoco.report.internal,org.jaco
+ co.report.internal.html",org.jacoco.report.internal.html.page;x-interna
+ l:=true;version="0.8.4";uses:="org.jacoco.core.analysis,org.jacoco.core
+ .data,org.jacoco.report,org.jacoco.report.internal,org.jacoco.report.in
+ ternal.html,org.jacoco.report.internal.html.index,org.jacoco.report.int
+ ernal.html.table",org.jacoco.report.internal.html.resources;x-internal:
+ =true;version="0.8.4";uses:="org.jacoco.core.analysis,org.jacoco.report
+ .internal",org.jacoco.report.internal.html.table;x-internal:=true;versi
+ on="0.8.4";uses:="org.jacoco.core.analysis,org.jacoco.report.internal,o
+ rg.jacoco.report.internal.html,org.jacoco.report.internal.html.resource
+ s",org.jacoco.report.internal.xml;x-internal:=true;version="0.8.4";uses
+ :="org.jacoco.core.analysis,org.jacoco.core.data,org.jacoco.report,org.
+ jacoco.report.internal",org.jacoco.report;version="0.8.4";uses:="org.ja
+ coco.core.analysis,org.jacoco.core.data,org.jacoco.core.tools",org.jaco
+ co.report.check;version="0.8.4";uses:="org.jacoco.core.analysis,org.jac
+ oco.report",org.jacoco.report.csv;version="0.8.4";uses:="org.jacoco.rep
+ ort",org.jacoco.report.html;version="0.8.4";uses:="org.jacoco.report,or
+ g.jacoco.report.internal.html,org.jacoco.report.internal.html.index,org
+ .jacoco.report.internal.html.resources,org.jacoco.report.internal.html.
+ table",org.jacoco.report.xml;version="0.8.4";uses:="org.jacoco.report"
+Import-Package: org.jacoco.core;version="[0.8.4,0.8.5)",org.jacoco.core.
+ analysis;version="[0.8.4,0.8.5)",org.jacoco.core.data;version="[0.8.4,0
+ .8.5)",org.jacoco.core.internal.analysis;version="[0.8.4,0.8.5)",org.ja
+ coco.core.internal.diff;version="[0.8.4,0.8.5)",org.jacoco.core.runtime
+ ;version="[0.8.4,0.8.5)",org.jacoco.core.tools;version="[0.8.4,0.8.5)",
+ org.jacoco.report;version="[0.8.4,0.8.5)",org.jacoco.report.html;versio
+ n="[0.8.4,0.8.5)",org.jacoco.report.internal;version="[0.8.4,0.8.5)",or
+ g.jacoco.report.internal.html;version="[0.8.4,0.8.5)",org.jacoco.report
+ .internal.html.index;version="[0.8.4,0.8.5)",org.jacoco.report.internal
+ .html.page;version="[0.8.4,0.8.5)",org.jacoco.report.internal.html.reso
+ urces;version="[0.8.4,0.8.5)",org.jacoco.report.internal.html.table;ver
+ sion="[0.8.4,0.8.5)",org.jacoco.report.internal.xml;version="[0.8.4,0.8
+ .5)",org.objectweb.asm;version="[7.1.0,7.2)"
+Originally-Created-By: Apache Maven Bundle Plugin
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.5))"
+Tool: Bnd-3.5.0.201709291849

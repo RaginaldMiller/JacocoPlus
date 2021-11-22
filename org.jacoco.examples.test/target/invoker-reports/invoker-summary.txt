@@ -1,0 +1,1 @@
+failure-build [build/pom.xml]  The build exited with code 1. See /Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.examples.test/target/it/build/build.log for details.

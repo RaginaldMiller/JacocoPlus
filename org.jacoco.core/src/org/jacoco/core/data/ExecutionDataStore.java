@@ -11,6 +11,8 @@
  *******************************************************************************/
 package org.jacoco.core.data;
 
+import org.jacoco.core.internal.diff.CommitIdContext;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -47,12 +49,55 @@ public final class ExecutionDataStore implements IExecutionDataVisitor {
 	public void put(final ExecutionData data) throws IllegalStateException {
 		final Long id = Long.valueOf(data.getId());
 		final ExecutionData entry = entries.get(id);
-		if (entry == null) {
-			entries.put(id, data);
-			names.add(data.getName());
-		} else {
-			entry.merge(data);
+		try {
+			data.setCommitId(CommitIdContext.getCommitId());
+		}catch (Exception e){
+			//do nothing here
 		}
+
+//		if (entry == null) {
+//			entries.put(id, data);
+//			names.add(data.getName());
+//		} else {
+//			entry.merge(data);
+//		}
+
+		// classId 在走entry.merge(data);
+		// classId不在，加判断names，若names里没有 走老逻辑
+		// 若有走新逻辑
+		// 新逻辑  遍历类下的所有方法，相同未修改方法 合并探针。相同已修改方法，以新方法为准，使用git commit list 获取先后顺序
+		// Merge 类load 文件的时候传commitId？ 能否在这获取到
+
+		if(entry != null){
+			entry.merge(data);
+		}else {
+			String name = data.getName();
+			if(containsName(name)){
+				// 变更类 按方法切割合并 找到相同类名的类合并
+				for (Map.Entry<Long, ExecutionData> executionDataEntry : entries.entrySet()) {
+					ExecutionData exData = executionDataEntry.getValue();
+					String className = exData.getName();
+					if(className.equals(name)){
+						exData.mergeClassByMethod(data);
+					}
+				}
+			}else{
+				// 新增类
+				data.commitId = CommitIdContext.getCommitId();
+				entries.put(id, data);
+				names.add(name);
+			}
+		}
+
+
+	}
+	public boolean containsName(String name){
+		for (String na : names) {
+			if(na.equals(name)){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+  <properties>
+    <title>jacoco:merge</title>
+  </properties>
+  <body>
+    <section name="jacoco:merge">
+      <p><strong>Full name</strong>:</p>
+      <p>org.jacoco:jacoco-maven-plugin:0.8.4:merge</p>
+      <p><strong>Description</strong>:</p>
+      <div>Mojo for merging a set of execution data files (*.exec) into a
+single file</div>
+      <p><strong>Attributes</strong>:</p>
+      <ul>
+        <li>Requires a Maven project to be executed.</li>
+        <li>Since version: <code>0.6.4</code>.</li>
+        <li>Binds by default to the <a href="http://maven.apache.org/ref/current/maven-core/lifecycles.html">lifecycle phase</a>: <code>generate-resources</code>.</li>
+      </ul>
+      <subsection name="Required Parameters">
+        <table border="0">
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Since</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td><code><a href="#fileSets">&lt;fileSets&gt;</a></code></td>
+            <td><code>List</code></td>
+            <td><code>0.6.4</code></td>
+            <td>This mojo accepts any number of execution data file sets. 
+<pre>
+<code>
+&lt;fileSets&gt;
+  &lt;fileSet&gt;
+    &lt;directory&gt;${project.build.directory}&lt;/directory&gt;
+    &lt;includes&gt;
+      &lt;include&gt;*.exec&lt;/include&gt;
+    &lt;/includes&gt;
+  &lt;/fileSet&gt;
+&lt;/fileSets&gt;
+</code>
+</pre><br/></td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="Optional Parameters">
+        <table border="0">
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Since</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td><code><a href="#destFile">&lt;destFile&gt;</a></code></td>
+            <td><code>File</code></td>
+            <td><code>0.6.4</code></td>
+            <td>Path to the output file for execution data.<br/><strong>Default value is</strong>: <code>${project.build.directory}/jacoco.exec</code>.<br/><strong>User property is</strong>: <code>jacoco.destFile</code>.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#skip">&lt;skip&gt;</a></code></td>
+            <td><code>boolean</code></td>
+            <td><code>0.6.4</code></td>
+            <td>Flag used to suppress execution.<br/><strong>Default value is</strong>: <code>false</code>.<br/><strong>User property is</strong>: <code>jacoco.skip</code>.<br/></td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="Parameter Details">
+        <h4><strong><a name="destFile">&lt;destFile&gt;</a></strong></h4>
+        <div>Path to the output file for execution data.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.io.File</code></li>
+          <li><strong>Since</strong>: <code>0.6.4</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>User Property</strong>: <code>jacoco.destFile</code></li>
+          <li><strong>Default</strong>: <code>${project.build.directory}/jacoco.exec</code></li>
+        </ul><hr/><h4><strong><a name="fileSets">&lt;fileSets&gt;</a></strong></h4>
+        <div>This mojo accepts any number of execution data file sets. 
+<pre>
+<code>
+&lt;fileSets&gt;
+  &lt;fileSet&gt;
+    &lt;directory&gt;${project.build.directory}&lt;/directory&gt;
+    &lt;includes&gt;
+      &lt;include&gt;*.exec&lt;/include&gt;
+    &lt;/includes&gt;
+  &lt;/fileSet&gt;
+&lt;/fileSets&gt;
+</code>
+</pre></div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.util.List</code></li>
+          <li><strong>Since</strong>: <code>0.6.4</code></li>
+          <li><strong>Required</strong>: <code>Yes</code></li>
+        </ul><hr/><h4><strong><a name="skip">&lt;skip&gt;</a></strong></h4>
+        <div>Flag used to suppress execution.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>boolean</code></li>
+          <li><strong>Since</strong>: <code>0.6.4</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>User Property</strong>: <code>jacoco.skip</code></li>
+          <li><strong>Default</strong>: <code>false</code></li>
+        </ul>
+      </subsection>
+    </section>
+  </body>
+</document>

@@ -19,16 +19,14 @@ import org.eclipse.jgit.lib.ObjectReader;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.patch.FileHeader;
+import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.treewalk.AbstractTreeIterator;
 import org.eclipse.jgit.treewalk.CanonicalTreeParser;
 import org.eclipse.jgit.util.StringUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.*;
 
 /**
@@ -46,7 +44,12 @@ public class CodeDiff {
      * @return
      */
     public static List<ClassInfo> diffBranchToBranch(String gitPath, String newBranchName, String oldBranchName) {
+        List<ClassInfo> codeDiffResult = CodeDiffRecord.getCodeDiffResult(newBranchName, oldBranchName);
+        if(codeDiffResult != null){
+            return codeDiffResult;
+        }
         List<ClassInfo> classInfos = diffMethods(gitPath, newBranchName, oldBranchName);
+        CodeDiffRecord.saveCodeDiffResult(newBranchName,oldBranchName,classInfos);
         return classInfos;
     }
     private static List<ClassInfo> diffMethods(String gitPath, String newBranchName, String oldBranchName) {
@@ -59,6 +62,7 @@ public class CodeDiff {
             //  更新本地分支
             gitAdapter.checkOutAndPull(localMasterRef, oldBranchName);
             gitAdapter.checkOutAndPull(localBranchRef, newBranchName);
+
             //  获取分支信息
             AbstractTreeIterator newTreeParser = gitAdapter.prepareTreeParser(localBranchRef);
             AbstractTreeIterator oldTreeParser = gitAdapter.prepareTreeParser(localMasterRef);
@@ -94,8 +98,12 @@ public class CodeDiff {
         if(!gitPathDir.exists()){
             throw new IllegalArgumentException("Parameter local gitPath is not exit !");
         }
-
+        List<ClassInfo> codeDiffResult = CodeDiffRecord.getCodeDiffResult(newTag, oldTag);
+        if(codeDiffResult != null){
+            return codeDiffResult;
+        }
         List<ClassInfo> classInfos = diffTagMethods(gitPath,branchName, newTag, oldTag);
+        CodeDiffRecord.saveCodeDiffResult(newTag,oldTag,classInfos);
         return classInfos;
     }
     private static List<ClassInfo> diffTagMethods(String gitPath,String branchName, String newTag, String oldTag) {
@@ -111,7 +119,6 @@ public class CodeDiff {
 
             ObjectId head = repo.resolve(newTag+"^{tree}");
             ObjectId previousHead = repo.resolve(oldTag+"^{tree}");
-
             // Instanciate a reader to read the data from the Git database
             ObjectReader reader = repo.newObjectReader();
             // Create the tree iterator for each commit
@@ -226,10 +233,10 @@ public class CodeDiff {
             EditList editList = fileHeader.toEditList();
             for(Edit edit : editList){
                 if (edit.getLengthA() > 0) {
-                    delLines.add(new int[]{edit.getBeginA(), edit.getEndA()});
+                    delLines.add(new int[]{edit.getBeginA() +1, edit.getEndA()});
                 }
                 if (edit.getLengthB() > 0 ) {
-                    addLines.add(new int[]{edit.getBeginB(), edit.getEndB()});
+                    addLines.add(new int[]{edit.getBeginB() +1, edit.getEndB()});
                 }
             }
             String oldJavaPath = diffEntry.getOldPath();
@@ -353,10 +360,10 @@ public class CodeDiff {
             EditList editList = fileHeader.toEditList();
             for(Edit edit : editList){
                 if (edit.getLengthA() > 0) {
-                    delLines.add(new int[]{edit.getBeginA(), edit.getEndA()});
+                    delLines.add(new int[]{edit.getBeginA()+1, edit.getEndA()});
                 }
                 if (edit.getLengthB() > 0 ) {
-                    addLines.add(new int[]{edit.getBeginB(), edit.getEndB()});
+                    addLines.add(new int[]{edit.getBeginB()+1, edit.getEndB()});
                 }
             }
             String oldJavaPath = diffEntry.getOldPath();
@@ -386,5 +393,10 @@ public class CodeDiff {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void main(String[] args) {
+        GitAdapter.setCredentialsProvider("kenlu", "@1990LFKlfk");
+        diffTagToTag("/Users/lexin/Desktop/dev/fenqile_app","develop_CR","61184da6","9dc7ec4d");
     }
 }

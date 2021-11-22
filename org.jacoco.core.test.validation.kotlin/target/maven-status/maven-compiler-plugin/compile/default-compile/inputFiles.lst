@@ -1,0 +1,13 @@
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.kotlin/src/org/jacoco/core/test/validation/kotlin/KotlinDefaultArgumentsTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.kotlin/src/org/jacoco/core/test/validation/kotlin/KotlinCallableReferenceTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.kotlin/src/org/jacoco/core/test/validation/kotlin/KotlinInlineTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.kotlin/src/org/jacoco/core/test/validation/kotlin/KotlinLateinitTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.kotlin/src/org/jacoco/core/test/validation/kotlin/KotlinNotNullOperatorTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.kotlin/src/org/jacoco/core/test/validation/kotlin/KotlinCoroutineTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.kotlin/src/org/jacoco/core/test/validation/kotlin/KotlinWhenExpressionTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.kotlin/src/org/jacoco/core/test/validation/kotlin/KotlinElvisOperatorTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.kotlin/src/org/jacoco/core/test/validation/kotlin/KotlinTopLevelFunctionTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.kotlin/src/org/jacoco/core/test/validation/kotlin/KotlinUnsafeCastOperatorTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.kotlin/src/org/jacoco/core/test/validation/kotlin/KotlinDataClassTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.kotlin/src/org/jacoco/core/test/validation/kotlin/KotlinSafeCastTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core.test.validation.kotlin/src/org/jacoco/core/test/validation/kotlin/KotlinSafeCallOperatorTest.java

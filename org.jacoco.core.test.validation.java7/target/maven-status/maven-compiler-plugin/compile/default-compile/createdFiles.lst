@@ -1,0 +1,6 @@
+org/jacoco/core/test/validation/java7/TryWithResourcesTest.class
+org/jacoco/core/test/validation/java7/targets/TryWithResourcesTarget$Resource.class
+org/jacoco/core/test/validation/java7/targets/StringSwitchTarget.class
+org/jacoco/core/test/validation/java7/StringSwitchTest.class
+org/jacoco/core/test/validation/java7/targets/TryWithResourcesTarget$1.class
+org/jacoco/core/test/validation/java7/targets/TryWithResourcesTarget.class

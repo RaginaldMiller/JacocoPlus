@@ -1,0 +1,10 @@
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.cli.test/src/org/jacoco/cli/internal/XmlDocumentationTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.cli.test/src/org/jacoco/cli/internal/commands/DumpTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.cli.test/src/org/jacoco/cli/internal/commands/VersionTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.cli.test/src/org/jacoco/cli/internal/commands/ClassInfoTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.cli.test/src/org/jacoco/cli/internal/commands/ExecInfoTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.cli.test/src/org/jacoco/cli/internal/commands/InstrumentTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.cli.test/src/org/jacoco/cli/internal/CommandTestBase.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.cli.test/src/org/jacoco/cli/internal/commands/ReportTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.cli.test/src/org/jacoco/cli/internal/commands/MergeTest.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.cli.test/src/org/jacoco/cli/internal/MainTest.java
