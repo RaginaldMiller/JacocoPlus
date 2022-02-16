@@ -33,14 +33,14 @@ public final class ExecutionData {
 
 	private final boolean[] probes;
 
-	public String commitId;
+	public String UDID;
 
-	public String getCommitId() {
-		return commitId;
+	public String getUDID() {
+		return UDID;
 	}
 
-	public void setCommitId(String commitId) {
-		this.commitId = commitId;
+	public void setUDID(String UDID) {
+		this.UDID = UDID;
 	}
 
 	/**
@@ -58,6 +58,15 @@ public final class ExecutionData {
 		this.id = id;
 		this.name = name;
 		this.probes = probes;
+		/*
+		if(this.name.equals("com/fenqile/base/BaseActivity")){
+			if(this.probes[433]){
+				boolean a = this.probes[432];
+				boolean a1 = this.probes[433];
+				boolean a2 = this.probes[434];
+			}
+		}
+		*/
 	}
 
 	/**
@@ -183,9 +192,9 @@ public final class ExecutionData {
 	public void mergeClassByMethod(final ExecutionData other){
 
 		String name = other.getName();
-		String currentCommitId = CommitIdContext.getCommitId();
-		Map<String, int[]> newMethodProMap = MethodProbes.methodProbsMap.get(commitId);
-		Map<String, int[]> oldMethodProMap = MethodProbes.methodProbsMap.get(currentCommitId);
+		String currentUDID = MethodProbesContext.getUDID();
+		Map<String, int[]> newMethodProMap = MethodProbes.methodProbsMap.get(UDID);
+		Map<String, int[]> oldMethodProMap = MethodProbes.methodProbsMap.get(currentUDID);
 		// methodProMap 是覆盖率文件所有方法探针数据
 		// 先判断当前类在两个map中是否存在
 		// 新 老  有 有 ==》 合并
@@ -201,9 +210,30 @@ public final class ExecutionData {
 			for (Map.Entry<String, int[]> entry : oldMethodProMap.entrySet()) {
 				String methodKey = entry.getKey();
 				String methodName = methodKey.split("\\.")[1];
-				if(methodKey.startsWith(name)){
+				String className = methodKey.split("\\.")[0];
+				if(className.equals(name)){
+
 					int[] newMethodProbes = newMethodProMap.get(methodKey);
 					int[] oldMethodProbes = oldMethodProMap.get(methodKey);
+					/*
+					if(methodKey.equals("com/fenqile/base/BaseActivity.getStatusBarHeight.()I")){
+						// 遍历this
+						// 遍历other
+						for (int i = newMethodProbes[0]; i <= newMethodProbes[1]; i++) {
+							System.out.println("index:" + i + this.probes[i]);
+							if(this.probes[i]){
+								System.out.print("");
+							}
+						}
+
+						for (int i = oldMethodProbes[0]; i <= oldMethodProbes[1]; i++) {
+							System.out.println("index:" + i + other.probes[i]);
+							if(other.probes[i]){
+								System.out.print("");
+							}
+						}
+
+					}*/
 					// 理论上不可能是空 除非analyzeAll方法没有运行完成，导致数据缺失！！！ 深坑
 					if(newMethodProbes!=null && !isDiffMethod(methodName,CoverageBuilder.classInfos)){
 						//不为空 且 不是变更方法 merge ==》 变更方法。不动
@@ -216,7 +246,9 @@ public final class ExecutionData {
 								try {
 									this.probes[newStartIndex+i] = (this.probes[newStartIndex+i] | other.probes[oldStartIndex + i]);
 								}catch (Exception e){
-									e.printStackTrace();
+									// TODO 备份原数据 当合并发生异常时，还原数据，跳出当前循环
+									System.out.println("当前方法合并发生异常：" + methodKey );
+									//e.printStackTrace();
 								}
 							}
 						}

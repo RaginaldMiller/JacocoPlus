@@ -11,21 +11,10 @@
  *******************************************************************************/
 package org.jacoco.examples;
 
-import org.jacoco.core.analysis.Analyzer;
-import org.jacoco.core.analysis.CoverageBuilder;
-import org.jacoco.core.analysis.IBundleCoverage;
-import org.jacoco.core.internal.diff.GitAdapter;
-import org.jacoco.core.internal.diff.IncreceCodeRecord;
 import org.jacoco.core.internal.diff.JacocoFileUtils;
 import org.jacoco.core.internal.diff.LXMerge;
-import org.jacoco.core.tools.ExecFileLoader;
-import org.jacoco.report.DirectorySourceFileLocator;
-import org.jacoco.report.FileMultiReportOutput;
-import org.jacoco.report.IReportVisitor;
-import org.jacoco.report.html.HTMLFormatter;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -53,13 +42,7 @@ public class LXReportGenerator {
 
 		Map<String, List<File>> allEcFilesByVersion = JacocoFileUtils.getAllEcFilesByVersion(ecFileDir, version);
 		List<String> list = new ArrayList<String>();
-		for (Map.Entry<String, List<File>> entry : allEcFilesByVersion.entrySet()) {
-			List<File> fileList = entry.getValue();
-			String commitId = entry.getKey();
-			LXMerge lxMerge = new LXMerge();
-			String mergeFilePath = lxMerge.mergeSameCommitIdFiles(fileList, ecFileDir);
-			list.add(mergeFilePath);
-		}
+
 		File oldFile = new File(list.get(0));
 		File newFile = new File(list.get(1));
 		String mergeFile = merge(newFile ,oldFile);
@@ -71,9 +54,9 @@ public class LXReportGenerator {
 	}
 
 	public static String merge(File newFile ,File oldFile) throws Exception {
-		LXMerge lxMerge = new LXMerge(appName,projectPath,gitUserName,gitUserPsw,baseBranch,testBranch,ecFileDir,oldFile,newFile,"versionmerge");
+		LXMerge lxMerge = new LXMerge(appName,projectPath,gitUserName,gitUserPsw,baseBranch,testBranch,ecFileDir,oldFile,newFile,"versionmerge","");
 		String dir = ecFileDir;
-		return  lxMerge.mergeDiffCommitIdEcFiles(dir);
+		return  lxMerge.merge(dir);
 	}
 
 }

@@ -1,6 +1,7 @@
 org/jacoco/core/internal/analysis/filter/StringSwitchJavacFilter.class
 org/jacoco/core/internal/analysis/filter/KotlinWhenStringFilter$1.class
 org/jacoco/core/internal/instr/ProbeArrayStrategyFactory.class
+org/jacoco/core/internal/diff/MethodProbesContext.class
 org/jacoco/core/internal/analysis/LineImpl.class
 org/jacoco/core/internal/instr/InterfaceFieldProbeArrayStrategy.class
 org/jacoco/core/internal/analysis/LineImpl$1.class
@@ -124,7 +125,6 @@ org/jacoco/core/internal/diff/MethodProbes.class
 org/jacoco/core/internal/analysis/filter/AnnotationGeneratedFilter.class
 org/jacoco/core/internal/analysis/InstructionsBuilder$Jump.class
 org/jacoco/core/internal/analysis/filter/KotlinInlineFilter.class
-org/jacoco/core/internal/diff/CommitIdContext.class
 org/jacoco/core/internal/analysis/filter/SyntheticFilter.class
 org/jacoco/core/internal/analysis/filter/EnumEmptyConstructorFilter$Matcher.class
 org/jacoco/core/internal/flow/MethodSanitizer.class

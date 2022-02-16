@@ -44,13 +44,13 @@ public class ReportGenerator {
 
 	public ReportGenerator(final File projectDirectory) {
 		this.title = projectDirectory.getName();
-//		this.executionDataFile = new File("/Users/lexin/Desktop/mergetest/6.9.0/merged-04e4ea50.exec");
-		this.executionDataFile = new File("/Users/lexin/Desktop/test/6.10.1/merged-61184da6.exec");
+//		this.executionDataFile = new File("/Users/lexin/Desktop/mergetest/6.9.0/merged-04e4ea50.exec");9774d56d682e549c-6.10.1-61184da6-20211027163109-jacoco.ec 9774d56d682e549c-6.10.1-728a6ab1-20211027143601-jacoco.ec
+		this.executionDataFile = new File("/Users/lexin/Desktop/test/versionmerge-6.10.1-61184da6-1637586627413-jacoco.ec");
 //		this.classesDirectory = new File("/Users/lexin/Desktop/mergetest/6.9.0/fenqile-04e4ea50-class-1633686258505/");
 		this.classesDirectory = new File("/Users/lexin/Desktop/test/class/");
 //		this.sourceDirectory = new File("/Users/lexin/Desktop/mergetest/6.9.0/fenqile-04e4ea50-source-1633686257266/");
 		this.sourceDirectory = new File("/Users/lexin/Desktop/test/source/");
-		this.reportDirectory = new File("/Users/lexin/Desktop/test/report1/");
+		this.reportDirectory = new File("/Users/lexin/Desktop/test/report/");
 	}
 
 	public void create() throws IOException {
@@ -78,7 +78,7 @@ public class ReportGenerator {
 	private IBundleCoverage analyzeStructure() throws IOException {
 
 		GitAdapter.setCredentialsProvider("kenlu", "@1990LFKlfk");
-		final CoverageBuilder coverageBuilder = new CoverageBuilder("/Users/lexin/Desktop/dev/fenqile_app","develop_CR","61184da6b","9dc7ec4d");
+		final CoverageBuilder coverageBuilder = new CoverageBuilder("/Users/lexin/Desktop/dev/fenqile_app","develop_CR","61184da6","9dc7ec4d");
 //		CoverageBuilder coverageBuilder = new CoverageBuilder();
 		final Analyzer analyzer = new Analyzer(
 				execFileLoader.getExecutionDataStore(), coverageBuilder);

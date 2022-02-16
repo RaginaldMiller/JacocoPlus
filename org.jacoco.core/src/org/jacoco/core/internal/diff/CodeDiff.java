@@ -45,7 +45,7 @@ public class CodeDiff {
      */
     public static List<ClassInfo> diffBranchToBranch(String gitPath, String newBranchName, String oldBranchName) {
         List<ClassInfo> codeDiffResult = CodeDiffRecord.getCodeDiffResult(newBranchName, oldBranchName);
-        if(codeDiffResult != null){
+        if(codeDiffResult != null && codeDiffResult.size()!=0){
             return codeDiffResult;
         }
         List<ClassInfo> classInfos = diffMethods(gitPath, newBranchName, oldBranchName);
@@ -99,7 +99,7 @@ public class CodeDiff {
             throw new IllegalArgumentException("Parameter local gitPath is not exit !");
         }
         List<ClassInfo> codeDiffResult = CodeDiffRecord.getCodeDiffResult(newTag, oldTag);
-        if(codeDiffResult != null){
+        if(codeDiffResult != null && codeDiffResult.size()!=0){
             return codeDiffResult;
         }
         List<ClassInfo> classInfos = diffTagMethods(gitPath,branchName, newTag, oldTag);

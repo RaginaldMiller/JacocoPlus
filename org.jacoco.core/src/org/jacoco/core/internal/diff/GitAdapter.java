@@ -227,7 +227,7 @@ public class GitAdapter {
             return;
         }
         //  切换分支
-        git.checkout().setCreateBranch(isCreateBranch).setName(branchName).setStartPoint("origin/" + branchName).setUpstreamMode(CreateBranchCommand.SetupUpstreamMode.SET_UPSTREAM).call();
+        git.checkout().setForced(true).setCreateBranch(isCreateBranch).setName(branchName).setStartPoint("origin/" + branchName).setUpstreamMode(CreateBranchCommand.SetupUpstreamMode.SET_UPSTREAM).call();
         //  拉取最新代码
         git.pull().setCredentialsProvider(usernamePasswordCredentialsProvider).call();
     }
@@ -254,5 +254,16 @@ public class GitAdapter {
             }
         }
         return false;
+    }
+
+    public static void main(String[] args) throws GitAPIException {
+
+        GitAdapter gitAdapter = new GitAdapter("/Users/lexin/Desktop/dev/fenqile_app");
+        gitAdapter.setCredentialsProvider("lufukeng003","@1990LFKlfk");
+        List<RevCommit> list = gitAdapter.getBranchRevCommitList("develop_CR");
+        for (int i = 0; i < list.size(); i++) {
+            RevCommit revCommit = list.get(i);
+            System.out.println(revCommit.getName());
+        }
     }
 }

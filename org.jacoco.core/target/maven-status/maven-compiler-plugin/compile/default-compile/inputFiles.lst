@@ -14,6 +14,7 @@
 /Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core/src/org/jacoco/core/runtime/AgentOptions.java
 /Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core/src/org/jacoco/core/internal/analysis/ClassCoverageImpl.java
 /Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core/src/org/jacoco/core/internal/analysis/SourceNodeImpl.java
+/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core/src/org/jacoco/core/internal/diff/MethodProbesContext.java
 /Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core/src/org/jacoco/core/instr/Instrumenter.java
 /Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core/src/org/jacoco/core/runtime/OfflineInstrumentationAccessGenerator.java
 /Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core/src/org/jacoco/core/internal/diff/MethodProbes.java
@@ -82,7 +83,6 @@
 /Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core/src/org/jacoco/core/internal/instr/SignatureRemover.java
 /Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core/src/org/jacoco/core/analysis/IPackageCoverage.java
 /Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core/src/org/jacoco/core/internal/analysis/MethodCoverageImpl.java
-/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core/src/org/jacoco/core/internal/diff/CommitIdContext.java
 /Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core/src/org/jacoco/core/data/SessionInfoStore.java
 /Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core/src/org/jacoco/core/internal/analysis/ClassAnalyzer.java
 /Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core/src/org/jacoco/core/internal/instr/InterfaceFieldProbeArrayStrategy.java

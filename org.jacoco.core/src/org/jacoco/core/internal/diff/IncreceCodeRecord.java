@@ -38,10 +38,18 @@ public class IncreceCodeRecord {
     }
 
     public static void getCodeLineStatus(ClassInfo classInfo, ILine line , String linesrc,int lineNr,String classPath){
+
+//        if(classPath.equals("com.fenqile.permission.CameraPhotoUtils")){
+//            System.out.print("");
+//            System.out.println(lineNr + "," + line.getStatus());
+//        }
         if(isNoNeedTestLine(classPath,lineNr)){
             return;
         }
-        if(IncreCodeExcludeStr.isInvalidStr(linesrc)){
+//        if(IncreCodeExcludeStr.isInvalidStr(linesrc)){
+//            return;
+//        }
+        if(line.getStatus()==0){
             return;
         }
         int[] data = null;

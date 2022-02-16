@@ -11,7 +11,7 @@
  *******************************************************************************/
 package org.jacoco.core.data;
 
-import org.jacoco.core.internal.diff.CommitIdContext;
+import org.jacoco.core.internal.diff.MethodProbesContext;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,7 +30,7 @@ import java.util.Set;
  */
 public final class ExecutionDataStore implements IExecutionDataVisitor {
 
-	private final Map<Long, ExecutionData> entries = new HashMap<Long, ExecutionData>();
+	public final Map<Long, ExecutionData> entries = new HashMap<Long, ExecutionData>();
 
 	private final Set<String> names = new HashSet<String>();
 
@@ -50,7 +50,7 @@ public final class ExecutionDataStore implements IExecutionDataVisitor {
 		final Long id = Long.valueOf(data.getId());
 		final ExecutionData entry = entries.get(id);
 		try {
-			data.setCommitId(CommitIdContext.getCommitId());
+			data.setUDID(MethodProbesContext.getUDID());
 		}catch (Exception e){
 			//do nothing here
 		}
@@ -83,7 +83,7 @@ public final class ExecutionDataStore implements IExecutionDataVisitor {
 				}
 			}else{
 				// 新增类
-				data.commitId = CommitIdContext.getCommitId();
+				data.UDID = MethodProbesContext.getUDID();
 				entries.put(id, data);
 				names.add(name);
 			}

@@ -11,6 +11,8 @@
  *******************************************************************************/
 package org.jacoco.report;
 
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.revwalk.RevCommit;
 import org.jacoco.core.analysis.Analyzer;
 import org.jacoco.core.analysis.CoverageBuilder;
 import org.jacoco.core.analysis.IBundleCoverage;
@@ -55,9 +57,15 @@ public class LXReport {
         this.username = username;
         this.password = password;
         this.testBranch = testBranch;
-        initCommitId(projectDirectory,testCommit,baseCommit);
+        try {
+            initCommitId(projectDirectory,testCommit,baseCommit);
+        }catch (Exception e){
+
+        }
+
     }
-    public void initCommitId(String projectDirectory,String testCommit,String baseCommit){
+    public void initCommitId(String projectDirectory,String testCommit,String baseCommit) throws GitAPIException {
+        /*
         List<ClassInfo> classInfoList1 = CodeDiff.diffTagToTag(projectDirectory, testBranch, testCommit, baseCommit);
         List<ClassInfo> classInfoList2 = CodeDiff.diffTagToTag(projectDirectory, testBranch, baseCommit, testCommit);
         if(classInfoList1.size() >= classInfoList2.size()){
@@ -66,6 +74,27 @@ public class LXReport {
         }else {
             this.testCommit = baseCommit;
             this.baseCommit = testCommit;
+        }*/
+        GitAdapter gitAdapter = new GitAdapter(projectDirectory);
+        GitAdapter.setCredentialsProvider(username, password);
+        List<RevCommit> branchRevCommitList = gitAdapter.getBranchRevCommitList(testBranch);
+        int newIndex = 0;
+        int oldIndex = 1;
+        for (int i = 0; i < branchRevCommitList.size(); i++) {
+            RevCommit revCommit = branchRevCommitList.get(i);
+            if(revCommit.getName().startsWith(testCommit)){
+                newIndex = i;
+            }
+            if(revCommit.getName().startsWith(baseCommit)){
+                oldIndex = i;
+            }
+        }
+        if(newIndex > oldIndex){
+            this.testCommit = baseCommit;
+            this.baseCommit = testCommit;
+        }else {
+            this.testCommit = testCommit;
+            this.baseCommit = baseCommit;
         }
     }
 

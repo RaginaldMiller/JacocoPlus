@@ -13,11 +13,12 @@ package org.jacoco.core.internal.flow;
 
 import org.jacoco.core.analysis.CoverageBuilder;
 import org.jacoco.core.internal.diff.ClassInfo;
-import org.jacoco.core.internal.diff.CommitIdContext;
+import org.jacoco.core.internal.diff.MethodProbesContext;
 import org.jacoco.core.internal.diff.MethodInfo;
 import org.jacoco.core.internal.diff.MethodProbes;
 import org.jacoco.core.internal.instr.InstrSupport;
 import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.commons.AnalyzerAdapter;
 
@@ -73,14 +74,19 @@ public class ClassProbesAdapter extends ClassVisitor implements
 		final MethodProbesVisitor mv = cv.visitMethod(access, name, desc,
 				signature, exceptions);
         //	增量计算覆盖率
-		String currentCommitId = CommitIdContext.getCommitId();
+		String currentUDID = MethodProbesContext.getUDID();
 		String methodId = this.name + "." + name + "." + desc;
+
 		//boolean isDiffMe = isDiffMethod(name, CoverageBuilder.classInfos);
 		boolean isDiffClass = isDiffClass( CoverageBuilder.classInfos);
 		int finalIndexStart = counter;
 		if (mv !=null && isDiffClass) {
 		//if (mv !=null) {
             methodProbes = mv;
+            /*
+			if(this.name.equals("com/fenqile/base/BaseActivity")){
+				System.out.println("methodId:"+ methodId +"Start============:counter=" + counter);
+			}*/
 		} else {
             // We need to visit the method in any case, otherwise probe ids
             // are not reproducible
@@ -88,6 +94,22 @@ public class ClassProbesAdapter extends ClassVisitor implements
         }
 		return new MethodSanitizer(null, access, name, desc, signature,
 				exceptions) {
+
+			@Override
+			public void visitLineNumber(final int line, final Label start) {
+				// Here we rely on the usage of the info fields by the tree API. If the
+				// labels have been properly used before the info field contains a
+				// reference to the LabelNode, otherwise null.
+
+				if (start.info != null) {
+					super.visitLineNumber(line, start);
+				}
+				/*
+				if(name.equals("com/fenqile/base/BaseActivity")){
+					System.out.println(line);
+				}*/
+
+			}
 
 			@Override
 			public void visitEnd() {
@@ -104,14 +126,25 @@ public class ClassProbesAdapter extends ClassVisitor implements
 				} else {
 					methodProbes.accept(this, probesAdapter);
 				}
+				/*
+				if(methodId.startsWith("com/fenqile/base/BaseActivity")){
+					System.out.println("methodId:"+ methodId +"end  ============:counter=" + counter-1);
+				}*/
 				// 保存方法探针结果数组下标数据  accept 之后counter++ 所以下面-1
-				saveMethodProbesIndex(currentCommitId,methodId, finalIndexStart,counter-1);
+				if(currentUDID != null && !isAccessMethod(this.name)){
+					saveMethodProbesIndex(currentUDID,methodId, finalIndexStart,counter-1);
+				}
 			}
 		};
 	}
-
-	public void saveMethodProbesIndex(String currentCommitId,String methodId,int indexStart,int indexEnd){
-		Map<String, int[]> probeMap = MethodProbes.methodProbsMap.get(currentCommitId);
+	public boolean isAccessMethod(String methodName){
+		if(methodName.startsWith("access$")){
+			return true;
+		}
+		return false;
+	}
+	public void saveMethodProbesIndex(String currentUDID,String methodId,int indexStart,int indexEnd){
+		Map<String, int[]> probeMap = MethodProbes.methodProbsMap.get(currentUDID);
 		if(probeMap==null){
 			Map<String, int[]> newProbeMap = new HashMap<String, int[]>();
 			//String key = methodProbes.
@@ -119,26 +152,49 @@ public class ClassProbesAdapter extends ClassVisitor implements
 			indexData[0] = indexStart;
 			indexData[1] = indexEnd;
 			newProbeMap.put(methodId,indexData);
-			MethodProbes.methodProbsMap.put(currentCommitId,newProbeMap);
+			MethodProbes.methodProbsMap.put(currentUDID,newProbeMap);
 		}else {
 			int[] ints = probeMap.get(methodId);
+
 			if(ints==null){
 				int[] indexData = new int[2];
 				indexData[0] = indexStart;
 				indexData[1] = indexEnd;
 				probeMap.put(methodId,indexData);
+			}else{
+				/*
+				if(ints[0]!=indexStart || ints[1]!=indexEnd){
+					System.out.println(">>>>>>>>>>>>>>>>>>> 当前方法数组下标数据不为空：" + methodId + " " + ints[0] + "," + ints[1]);
+					System.out.println(">>>>>>>>>>>>>>>>>>> 当前方法数组下标新数据为：" + methodId + " " + indexStart + "," + indexEnd);
+				}
+
+				if(methodId.equals("com/fenqile/ui/scan/ScanActivity.access$500.(Lcom/fenqile/ui/scan/ScanActivity;)I")){
+					System.out.println(">>>>>>>>>>>>>>>>>>> com/fenqile/ui/scan/ScanActivity.access$500.(Lcom/fenqile/ui/scan/ScanActivity;)I：" + methodId + " " + ints[0] + "," + ints[1]);
+					System.out.println(">>>>>>>>>>>>>>>>>>> com/fenqile/ui/scan/ScanActivity.access$500.(Lcom/fenqile/ui/scan/ScanActivity;)I：" + methodId + " " + indexStart + "," + indexEnd);
+				}
+				 */
+				int[] indexData = new int[2];
+				indexData[0] = indexStart;
+				indexData[1] = indexEnd;
+				probeMap.put(methodId,indexData);
 			}
+
 		}
 	}
 
 	@Override
 	public void visitEnd() {
 		cv.visitTotalProbeCount(counter);
+		/*
+		if(this.name.equals("com/fenqile/ui/scan/ScanActivity")){
+			System.out.println(MethodProbesContext.getUDID() + ":com/fenqile/ui/scan/ScanActivity:" + counter);
+		}*/
 		super.visitEnd();
 	}
 
 	// === IProbeIdGenerator ===
 
+	@Override
 	public int nextId() {
 		return counter++;
 	}
@@ -163,6 +219,9 @@ public class ClassProbesAdapter extends ClassVisitor implements
         String currentClassName = name.replaceAll("/",".");
         for (ClassInfo classInfo : classInfos) {
             String className = classInfo.getPackages() + "." + classInfo.getClassName();
+//			if(currentClassName.startsWith(className+"$")){
+//				return true;
+//			}
             if (currentClassName.equals(className)) {
                 for (MethodInfo methodInfo: classInfo.getMethodInfos()) {
                     String methodName = methodInfo.getMethodName();

@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Automatic-Module-Name: org.jacoco.ant
-Bnd-LastModified: 1631777119759
+Bnd-LastModified: 1637552519326
 Build-Jdk: 1.8.0_301
 Built-By: lexin
 Bundle-Description: JaCoCo Ant Tasks
@@ -10,10 +10,10 @@ Bundle-Name: JaCoCo Ant Tasks
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-SymbolicName: org.jacoco.ant
 Bundle-Vendor: Mountainminds GmbH & Co. KG
-Bundle-Version: 0.8.4.202109160724
+Bundle-Version: 0.8.4.202111220340
 Created-By: Apache Maven Bundle Plugin
 Eclipse-SourceReferences: scm:git:git://github.com/jacoco/jacoco.git;pat
- h="org.jacoco.ant";commitId=d543d08ff7ace45f8284c063ff198857d95303f0
+ h="org.jacoco.ant";commitId=07887b9fd6d5efc6675b554edf7ea835572f9503
 Export-Package: org.jacoco.ant;version="0.8.4";uses:="org.jacoco.core.an
  alysis,org.jacoco.report,org.jacoco.report.check"
 Import-Package: org.jacoco.agent;version="[0.8.4,0.8.5)",org.jacoco.core

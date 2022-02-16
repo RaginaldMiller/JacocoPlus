@@ -12,6 +12,7 @@
 package org.jacoco.core.internal.diff;
 
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.revwalk.RevCommit;
 import org.jacoco.core.tools.ExecFileLoader;
 
 
@@ -43,6 +44,7 @@ public class LXMerge {
 	public File newEcFile;
 	public String oldCommitId;
 	public String newCommitId;
+	public String baseTestCommitId;
 	public String gitProjectLocalPath;
 	public String gitUserName;
 	public String gitUserPsw;
@@ -50,7 +52,8 @@ public class LXMerge {
 
 	public LXMerge(){}
 	// mergeType versionmerge commitmerge decvicemerge
-	public LXMerge(String appName,String gitProjectLocalPath,String gitUserName,String gitUserPsw,String baseBranch,String testBranch,String ecFileDir,File oldEcFile,File newEcFile,String mergeType){
+	public LXMerge(String appName,String gitProjectLocalPath,String gitUserName,String gitUserPsw,String baseBranch,String testBranch,String ecFileDir,File oldEcFile,File newEcFile,String mergeType,String baseTestCommitId){
+		this.baseTestCommitId = baseTestCommitId;
 		this.gitProjectLocalPath = gitProjectLocalPath;
 		this.mergeType = mergeType;
 		this.testBranch = testBranch;
@@ -77,14 +80,37 @@ public class LXMerge {
 		String oldFileCommitId = JacocoFileUtils.getFileCommitId(oldEcFile);
 		String newFileCommitId = JacocoFileUtils.getFileCommitId(newEcFile);
 		if(oldFileCommitId.equals(newFileCommitId)){
-			this.oldCommitId = newFileCommitId;
-			this.newCommitId = oldFileCommitId;
+			this.oldCommitId = baseTestCommitId;
+			this.newCommitId = newFileCommitId;
 			return;
 		}
+		/*
 		List<ClassInfo> classInfoList1 = CodeDiff.diffTagToTag(gitProjectLocalPath, testBranch, newFileCommitId, oldFileCommitId);
 		List<ClassInfo> classInfoList2 = CodeDiff.diffTagToTag(gitProjectLocalPath, testBranch, oldFileCommitId, newFileCommitId);
 		//if(gitAdapter.compareCommitId(this.testBranch,oldFileCommitId,newFileCommitId)){
-		if(classInfoList1.size() < classInfoList2.size()){
+		if(classInfoList1.size() <= classInfoList2.size()){
+			File temp = oldEcFile;
+			oldEcFile = newEcFile;
+			newEcFile = temp;
+			this.oldCommitId = newFileCommitId;
+			this.newCommitId = oldFileCommitId;
+		}else{
+			this.oldCommitId = oldFileCommitId;
+			this.newCommitId = newFileCommitId;
+		}*/
+		List<RevCommit> branchRevCommitList = gitAdapter.getBranchRevCommitList(testBranch);
+		int newIndex = 0;
+		int oldIndex = 1;
+		for (int i = 0; i < branchRevCommitList.size(); i++) {
+			RevCommit revCommit = branchRevCommitList.get(i);
+			if(revCommit.getName().startsWith(newFileCommitId)){
+				newIndex = i;
+			}
+			if(revCommit.getName().startsWith(oldFileCommitId)){
+				oldIndex = i;
+			}
+		}
+		if(newIndex > oldIndex){
 			File temp = oldEcFile;
 			oldEcFile = newEcFile;
 			newEcFile = temp;
@@ -94,75 +120,46 @@ public class LXMerge {
 			this.oldCommitId = oldFileCommitId;
 			this.newCommitId = newFileCommitId;
 		}
+
 	}
 	// analyzeAll 拿到变更类的所有方法探针数组起止坐标
 	// loadExecutionData merge
 	// 返回合并后的ec文件  格式 merge-version-commitId-time-jacoco.ec
-	public String mergeDiffCommitIdEcFiles(String desDir) throws Exception {
+	public String merge(String desDir) throws Exception {
+		//String time1 = System.currentTimeMillis()+"";
+		MethodProbesContext.setUDID(newEcFile.getName());
 		analyzeEcFile(newEcFile);
+		//String time2 = System.currentTimeMillis()+"";
+		MethodProbesContext.setUDID(oldEcFile.getName());
 		analyzeEcFile(oldEcFile);
 		// 根据commitid再传file参数值
 		ExecFileLoader fileLoader = new ExecFileLoader();
 		// PS：先load新版本数据，再load旧版本数据
-		CommitIdContext.setCommitId(newCommitId);
+		MethodProbesContext.setUDID(newEcFile.getName());
 		fileLoader.load(newEcFile);
-		CommitIdContext.setCommitId(oldCommitId);
+		MethodProbesContext.setUDID(oldEcFile.getName());
 		fileLoader.load(oldEcFile);
 		String version = JacocoFileUtils.getEcFileVersion(newEcFile);
 		String shortCommitId = newEcFile.getName().split("-")[2];
 		String mergeFileName = mergeType +"-" + version + "-" + shortCommitId + "-" + System.currentTimeMillis() + "-jacoco.ec";
 		File destinFile = new File(desDir,mergeFileName);
 		fileLoader.save(destinFile,true);
+		// 删除map保存的探针数组
+		MethodProbes.methodProbsMap.remove(newEcFile.getName());
+		MethodProbes.methodProbsMap.remove(oldEcFile.getName());
+
 		return destinFile.getAbsolutePath();
 	}
 
 	public synchronized void analyzeEcFile(File file) throws IOException {
 		String commitId = JacocoFileUtils.getFileCommitId(file);
-		CommitIdContext.setCommitId(commitId);
+		//CommitIdContext.setCommitId(commitId);
 		String classFilePath = JacocoFileUtils.getClassFilePathByCommitId(ecFileDir, commitId, appName);
 		AnalyzeClassMetodProbe analyzeClassMetodProbe = new AnalyzeClassMetodProbe(file,new File(classFilePath),gitUserName,gitUserPsw,gitProjectLocalPath,baseBranch,testBranch,oldCommitId,newCommitId);
 		analyzeClassMetodProbe.analyze();
 	}
 
-	/**
-	 * 合并相同commitId的ec文件列表
-	 * @param list 相同commitId的ec文件列表
-	 * @param desDir 合并文件输出目录
-	 * @return 合并文件完整路径
-	 * @throws IOException
-	 */
-	public String mergeSameCommitIdFiles(List<File> list,String desDir) throws IOException {
-		ExecFileLoader fileLoader = new ExecFileLoader();
-		File ecFile1 = list.get(0);
-		String commitId = ecFile1.getName().split("-")[2];
-		String version = JacocoFileUtils.getEcFileVersion(ecFile1);
-		CommitIdContext.setCommitId(commitId);
-		for (File file : list) {
-			String name = file.getName();
-			if(!name.endsWith(".ec")){
-				continue;
-			}
-			fileLoader.load(file);
-		}
-		String mergeFileName = mergeType + "-" + version + "-" + commitId + "-" + System.currentTimeMillis() + "-jacoco.ec";
-		File destinFile = new File(desDir,mergeFileName);
-		fileLoader.save(destinFile,true);
-		return destinFile.getAbsolutePath();
-	}
-
-	public String merge(String ouputDir) throws Exception {
-		if(oldCommitId.equals(newCommitId)){
-			List<File> list = new ArrayList<>();
-			list.add(newEcFile);
-			list.add(oldEcFile);
-			return mergeSameCommitIdFiles(list,ouputDir);
-		}else {
-			return mergeDiffCommitIdEcFiles(ouputDir);
-		}
-
-	}
 	public static void main( String[] args) throws Exception {
-
 		String gitUserName = "kenlu";
 		String gitUserPsw = "@1990LFKlfk";
 		String gitProjectLocalPath = "/Users/lexin/Desktop/dev/fenqile_app";
@@ -171,14 +168,25 @@ public class LXMerge {
 		String ecFiledir = "/Users/lexin/Desktop/test/6.10.1/";
 		String appName = "fenqile_app";
 		String outputDir = "/Users/lexin/Desktop/test/6.10.1/";
-		File b = new File(ecFiledir,"4907349a865d7285-6.7.0-c8c97f24-20210903102659-jacoco.ec");
-		File c = new File(ecFiledir,"4907349a865d7285-6.7.0-c8c97f24-20210903102659-jacoco.ec");
-		String oldCommitId = "9dc7ec4d";
-		String newCommitId = "61184da6b";
-		String classFilePath = "/Users/lexin/Desktop/test/class/";
+		File file = new File("/Users/lexin/Desktop/test/6.10.1/");
+		File[] files = file.listFiles();
 
-		LXMerge lxMerge = new LXMerge("fenqile_app",gitProjectLocalPath,gitUserName,gitUserPsw,baseBranch,testBranch,ecFiledir,b,c,LXMerge.MERGE_TYPE_VERSION);
-		lxMerge.merge(outputDir);
+
+		File b = new File(ecFiledir,"9774d56d682e549c-6.10.1-61184da6-20211027162834-jacoco.ec");
+
+		for (File file1 : files) {
+			if(file1.getName().endsWith("ec")){
+				File c = new File(ecFiledir,"9774d56d682e549c-6.10.1-728a6ab1-20211027145845-jacoco.ec");
+				String oldCommitId = "9dc7ec4d";
+				String newCommitId = "61184da6b";
+				String classFilePath = "/Users/lexin/Desktop/test/class/";
+				String baseTestCommit = "";
+				LXMerge lxMerge = new LXMerge("fenqile_app",gitProjectLocalPath,gitUserName,gitUserPsw,baseBranch,testBranch,ecFiledir,b,c,LXMerge.MERGE_TYPE_VERSION,baseTestCommit);
+				String mergeFile = lxMerge.merge(outputDir);
+			}
+		}
+
+
 
 
 	}

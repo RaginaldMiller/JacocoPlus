@@ -174,7 +174,7 @@ public class JacocoFileUtils {
         if (!filesFolder.exists()) {
             filesFolder.mkdirs();
         }
-        String cmd = "tar -zxvf " + zipFile.getAbsolutePath() + " -C " + filesFolderPath;
+        String cmd = "tar -xvf " + zipFile.getAbsolutePath() + " -C " + filesFolderPath;
         exec_block(cmd);
         return filesFolderPath;
     }

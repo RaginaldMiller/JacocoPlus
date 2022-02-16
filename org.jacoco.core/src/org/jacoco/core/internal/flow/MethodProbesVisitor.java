@@ -21,7 +21,6 @@ import org.objectweb.asm.tree.MethodNode;
  * information.
  */
 public abstract class MethodProbesVisitor extends MethodVisitor {
-
 	/**
 	 * New visitor instance without delegate visitor.
 	 */
