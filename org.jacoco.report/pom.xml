@@ -20,6 +20,7 @@
   </parent>
 
   <artifactId>org.jacoco.report</artifactId>
+  <version>0.8.4.1</version>
 
   <name>JaCoCo :: Report</name>
   <description>JaCoCo Report</description>
@@ -28,6 +29,12 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>org.jacoco.core</artifactId>
+      <version>0.8.4.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.jgit</groupId>
+      <artifactId>org.eclipse.jgit</artifactId>
+      <version>5.13.0.202109080827-r</version>
     </dependency>
   </dependencies>
 

@@ -7,19 +7,15 @@
  *
  * Contributors:
  *    Marc R. Hoffmann - initial API and implementation
- *    
+ *
  *******************************************************************************/
 package org.jacoco.report.html;
-
-import java.io.IOException;
-import java.util.Collection;
-import java.util.List;
-import java.util.Locale;
 
 import org.jacoco.core.analysis.IBundleCoverage;
 import org.jacoco.core.analysis.ICoverageNode.CounterEntity;
 import org.jacoco.core.data.ExecutionData;
 import org.jacoco.core.data.SessionInfo;
+import org.jacoco.core.internal.diff.IncreceCodeRecord;
 import org.jacoco.report.ILanguageNames;
 import org.jacoco.report.IMultiReportOutput;
 import org.jacoco.report.IReportGroupVisitor;
@@ -42,6 +38,11 @@ import org.jacoco.report.internal.html.table.CounterColumn;
 import org.jacoco.report.internal.html.table.LabelColumn;
 import org.jacoco.report.internal.html.table.PercentageColumn;
 import org.jacoco.report.internal.html.table.Table;
+
+import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Formatter for coverage reports in multiple HTML pages.
@@ -73,7 +74,7 @@ public class HTMLFormatter implements IHTMLReportContext {
 	/**
 	 * Sets the implementation for language name display. Java language names
 	 * are defined by default.
-	 * 
+	 *
 	 * @param languageNames
 	 *            converter for language specific names
 	 */
@@ -84,7 +85,7 @@ public class HTMLFormatter implements IHTMLReportContext {
 	/**
 	 * Sets the locale used for report rendering. The current default locale is
 	 * used by default.
-	 * 
+	 *
 	 * @param locale
 	 *            locale used for report rendering
 	 */
@@ -94,7 +95,7 @@ public class HTMLFormatter implements IHTMLReportContext {
 
 	/**
 	 * Sets the optional text that should be included in every footer page.
-	 * 
+	 *
 	 * @param footerText
 	 *            footer text
 	 */
@@ -104,7 +105,7 @@ public class HTMLFormatter implements IHTMLReportContext {
 
 	/**
 	 * Sets the encoding used for generated HTML pages. Default is UTF-8.
-	 * 
+	 *
 	 * @param outputEncoding
 	 *            HTML output encoding
 	 */
@@ -177,7 +178,7 @@ public class HTMLFormatter implements IHTMLReportContext {
 
 	/**
 	 * Creates a new visitor to write a report to the given output.
-	 * 
+	 *
 	 * @param output
 	 *            output to write the report to
 	 * @return visitor to emit the report data to
@@ -208,6 +209,9 @@ public class HTMLFormatter implements IHTMLReportContext {
 					final ISourceFileLocator locator) throws IOException {
 				final BundlePage page = new BundlePage(bundle, null, locator,
 						root, HTMLFormatter.this);
+				// 记录全量覆盖率数据
+				IncreceCodeRecord.totalLine = bundle.getLineCounter().getTotalCount();
+				IncreceCodeRecord.totalCoverLine = bundle.getLineCounter().getCoveredCount();
 				createSessionsPage(page);
 				page.render();
 			}

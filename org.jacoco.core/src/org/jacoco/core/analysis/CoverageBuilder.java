@@ -7,16 +7,21 @@
  *
  * Contributors:
  *    Marc R. Hoffmann - initial API and implementation
- *    
+ *
  *******************************************************************************/
 package org.jacoco.core.analysis;
-
-import java.util.*;
 
 import org.jacoco.core.internal.analysis.BundleCoverageImpl;
 import org.jacoco.core.internal.analysis.SourceFileCoverageImpl;
 import org.jacoco.core.internal.diff.ClassInfo;
 import org.jacoco.core.internal.diff.CodeDiff;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Builder for hierarchical {@link ICoverageNode} structures from single
@@ -24,7 +29,7 @@ import org.jacoco.core.internal.diff.CodeDiff;
  * {@link ICoverageVisitor} interface. Afterwards the aggregated data can be
  * obtained with {@link #getClasses()}, {@link #getSourceFiles()} or
  * {@link #getBundle(String)} in the following hierarchy:
- * 
+ *
  * <pre>
  * {@link IBundleCoverage}
  * +-- {@link IPackageCoverage}*
@@ -42,7 +47,7 @@ public class CoverageBuilder implements ICoverageVisitor {
 
 	/**
 	 * Create a new builder.
-	 * 
+	 *
 	 */
 	public CoverageBuilder() {
 		this.classes = new HashMap<String, IClassCoverage>();
@@ -88,7 +93,7 @@ public class CoverageBuilder implements ICoverageVisitor {
 
 	/**
 	 * Returns all class nodes currently contained in this builder.
-	 * 
+	 *
 	 * @return all class nodes
 	 */
 	public Collection<IClassCoverage> getClasses() {
@@ -97,7 +102,7 @@ public class CoverageBuilder implements ICoverageVisitor {
 
 	/**
 	 * Returns all source file nodes currently contained in this builder.
-	 * 
+	 *
 	 * @return all source file nodes
 	 */
 	public Collection<ISourceFileCoverage> getSourceFiles() {
@@ -106,7 +111,7 @@ public class CoverageBuilder implements ICoverageVisitor {
 
 	/**
 	 * Creates a bundle from all nodes currently contained in this bundle.
-	 * 
+	 *
 	 * @param name
 	 *            Name of the bundle
 	 * @return bundle containing all classes and source files
@@ -118,7 +123,7 @@ public class CoverageBuilder implements ICoverageVisitor {
 
 	/**
 	 * Returns all classes for which execution data does not match.
-	 * 
+	 *
 	 * @see IClassCoverage#isNoMatch()
 	 * @return collection of classes with non-matching execution data
 	 */
@@ -139,8 +144,9 @@ public class CoverageBuilder implements ICoverageVisitor {
 		final IClassCoverage dup = classes.put(name, coverage);
 		if (dup != null) {
 			if (dup.getId() != coverage.getId()) {
-				throw new IllegalStateException(
-						"Can't add different class with same name: " + name);
+				// 注释此处是因为如果工程里不同模块中存在同路径同名的Java类文件会直接导致整个过程解析失败
+				/*throw new IllegalStateException(
+						"Can't add different class with same name: " + name);*/
 			}
 		} else {
 			final String source = coverage.getSourceFileName();

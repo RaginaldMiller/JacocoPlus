@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="maven-antrun-" default="main"  >
 <target name="main">
-  <fileset excludes="target/**,.idea/**,nb-configuration.xml" includes="**/*.java,**/*.xml,**/*.bsh" id="missinglicense.fileset" dir="/Users/lexin/Desktop/dev/JacocoPlus/org.jacoco.core">
+  <fileset excludes="target/**,.idea/**,nb-configuration.xml" includes="**/*.java,**/*.xml,**/*.bsh" id="missinglicense.fileset" dir="/Users/lexin/Desktop/dev/unittest/JacocoPlus/org.jacoco.core">
     <include name="**/*.kt"/>
     <include name="**/*.groovy"/>
     <not>

@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Brock Janiczak - initial API and implementation
- *    
+ *
  *******************************************************************************/
 package org.jacoco.examples;
 
@@ -29,7 +29,7 @@ import java.io.IOException;
  * This example creates a HTML report for eclipse like projects based on a
  * single execution data store called jacoco.exec. The report contains no
  * grouping information.
- * 
+ *
  * The class files under test must be compiled with debug information, otherwise
  * source highlighting will not work.
  */
@@ -65,7 +65,7 @@ public class AllCoverageReportGenerator {
 
 	/**
 	 * Create the report.
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	public void create() throws IOException {
@@ -133,7 +133,7 @@ public class AllCoverageReportGenerator {
 
 	/**
 	 * Starts the report generation process
-	 * 
+	 *
 	 * @param args
 	 *            Arguments to the application. This will be the location of the
 	 *            eclipse projects that will be used to generate reports for
@@ -149,7 +149,7 @@ public class AllCoverageReportGenerator {
 		final AllCoverageReportGenerator generator = new AllCoverageReportGenerator(new File("/Users/lexin/Desktop/dev/fenqile_app"));
 		generator.create();
 
-		float rate = (float)IncreceCodeRecord.totalIncreceCoverLine / IncreceCodeRecord.totalIncreceLine;
+		float rate = (float) IncreceCodeRecord.totalIncreceCoverLine / IncreceCodeRecord.totalIncreceLine;
 		System.out.println("IncreceCodeRecord.totalIncreceCoverLine:" + IncreceCodeRecord.totalIncreceCoverLine + ",IncreceCodeRecord.totalIncreceLine:"+ IncreceCodeRecord.totalIncreceLine + "  "+ rate);
 
 

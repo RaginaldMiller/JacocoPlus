@@ -24,17 +24,24 @@ import java.util.Map;
  */
 public class IncreceCodeRecord {
     public static Map<String,int[]> classIncreceCoverMap = new HashMap<String, int[]>();
+    // 增量覆盖率相关
     public static int totalIncreceLine = 0;
     public static int totalIncreceCoverLine = 0;
+    // 全量覆盖率相关
+    public static int totalLine = 0;
+    public static int totalCoverLine = 0;
     // 免测需求行
     public static Map<String,Integer[]> classNoNeedTestMap = new HashMap<String, Integer[]>();
     public static int totalNoNeedTestLine = 0;
+
     public static void clear(){
         classIncreceCoverMap.clear();
         totalIncreceLine = 0;
         totalIncreceCoverLine = 0;
         classNoNeedTestMap.clear();
         totalNoNeedTestLine = 0;
+        totalLine = 0;
+        totalCoverLine = 0;
     }
 
     public static void getCodeLineStatus(ClassInfo classInfo, ILine line , String linesrc,int lineNr,String classPath){

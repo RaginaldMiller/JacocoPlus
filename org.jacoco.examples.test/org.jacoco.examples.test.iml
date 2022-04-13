@@ -13,7 +13,7 @@
     <orderEntry type="module" module-name="org.jacoco.report" />
     <orderEntry type="library" name="Maven: com.alibaba:transmittable-thread-local:2.12.1" level="project" />
     <orderEntry type="module" module-name="org.jacoco.agent.rt" />
-    <orderEntry type="module" module-name="org.jacoco.core" />
+    <orderEntry type="library" name="Maven: org.jacoco:org.jacoco.core:0.8.4" level="project" />
     <orderEntry type="library" name="Maven: org.ow2.asm:asm:7.1" level="project" />
     <orderEntry type="library" name="Maven: org.ow2.asm:asm-commons:7.1" level="project" />
     <orderEntry type="library" name="Maven: org.ow2.asm:asm-analysis:7.1" level="project" />

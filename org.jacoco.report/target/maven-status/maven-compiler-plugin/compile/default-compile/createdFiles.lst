@@ -28,6 +28,7 @@ org/jacoco/report/internal/html/table/LabelColumn.class
 org/jacoco/report/JavaNames.class
 org/jacoco/report/internal/html/table/SortIndex$Entry.class
 org/jacoco/report/internal/html/HTMLElement.class
+org/jacoco/report/LXUnitCovReport.class
 org/jacoco/report/check/RulesChecker.class
 org/jacoco/report/internal/html/page/SessionsPage$1.class
 org/jacoco/report/internal/html/resources/Resources$1.class
@@ -71,6 +72,7 @@ org/jacoco/report/internal/html/resources/Styles.class
 org/jacoco/report/internal/html/page/PackageSourcePage.class
 org/jacoco/report/check/IViolationsOutput.class
 org/jacoco/report/internal/html/page/GroupPage.class
+org/jacoco/report/LXUnitCovReport$1.class
 org/jacoco/report/ZipMultiReportOutput$EntryOutput.class
 org/jacoco/report/check/RulesChecker$1.class
 org/jacoco/report/internal/xml/XMLGroupVisitor.class

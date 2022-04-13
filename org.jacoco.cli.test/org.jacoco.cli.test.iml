@@ -10,7 +10,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="org.jacoco.cli" />
-    <orderEntry type="module" module-name="org.jacoco.core" />
+    <orderEntry type="library" name="Maven: org.jacoco:org.jacoco.core:0.8.4" level="project" />
     <orderEntry type="library" name="Maven: org.ow2.asm:asm:7.1" level="project" />
     <orderEntry type="library" name="Maven: org.ow2.asm:asm-commons:7.1" level="project" />
     <orderEntry type="library" name="Maven: org.ow2.asm:asm-analysis:7.1" level="project" />

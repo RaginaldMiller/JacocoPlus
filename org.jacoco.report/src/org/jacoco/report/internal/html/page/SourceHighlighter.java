@@ -7,15 +7,9 @@
  *
  * Contributors:
  *    Marc R. Hoffmann - initial API and implementation
- *    
+ *
  *******************************************************************************/
 package org.jacoco.report.internal.html.page;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.Reader;
-import java.util.List;
-import java.util.Locale;
 
 import org.jacoco.core.analysis.CoverageBuilder;
 import org.jacoco.core.analysis.ICounter;
@@ -26,6 +20,12 @@ import org.jacoco.core.internal.diff.ClassInfo;
 import org.jacoco.core.internal.diff.IncreceCodeRecord;
 import org.jacoco.report.internal.html.HTMLElement;
 import org.jacoco.report.internal.html.resources.Styles;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Creates a highlighted output of a source file.
@@ -38,7 +38,7 @@ final class SourceHighlighter {
 
 	/**
 	 * Creates a new highlighter with default settings.
-	 * 
+	 *
 	 * @param locale
 	 *            locale for tooltip rendering
 	 */
@@ -50,7 +50,7 @@ final class SourceHighlighter {
 	/**
 	 * Specifies the source language. This value might be used for syntax
 	 * highlighting. Default is "java".
-	 * 
+	 *
 	 * @param lang
 	 *            source language identifier
 	 */
@@ -60,7 +60,7 @@ final class SourceHighlighter {
 
 	/**
 	 * Highlights the given source file.
-	 * 
+	 *
 	 * @param parent
 	 *            parent HTML element
 	 * @param source

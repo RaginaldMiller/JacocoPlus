@@ -7,29 +7,29 @@
  *
  * Contributors:
  *    Brock Janiczak - initial API and implementation
- *    
+ *
  *******************************************************************************/
 package org.jacoco.examples;
-
-import java.io.File;
-import java.io.IOException;
 
 import org.jacoco.core.analysis.Analyzer;
 import org.jacoco.core.analysis.CoverageBuilder;
 import org.jacoco.core.analysis.IBundleCoverage;
-import org.jacoco.core.internal.diff.GitAdapter;
 import org.jacoco.core.internal.diff.IncreceCodeRecord;
+import org.jacoco.core.internal.diff.GitAdapter;
 import org.jacoco.core.tools.ExecFileLoader;
 import org.jacoco.report.DirectorySourceFileLocator;
 import org.jacoco.report.FileMultiReportOutput;
 import org.jacoco.report.IReportVisitor;
 import org.jacoco.report.html.HTMLFormatter;
 
+import java.io.File;
+import java.io.IOException;
+
 /**
  * This example creates a HTML report for eclipse like projects based on a
  * single execution data store called jacoco.exec. The report contains no
  * grouping information.
- * 
+ *
  * The class files under test must be compiled with debug information, otherwise
  * source highlighting will not work.
  */
@@ -90,7 +90,7 @@ public class ReportGenerator {
 		final ReportGenerator generator = new ReportGenerator(new File("/Users/lexin/Desktop/dev/fenqile_app"));
 		generator.create();
 
-		float rate = (float)IncreceCodeRecord.totalIncreceCoverLine / IncreceCodeRecord.totalIncreceLine;
+		float rate = (float) IncreceCodeRecord.totalIncreceCoverLine / IncreceCodeRecord.totalIncreceLine;
 		System.out.println("IncreceCodeRecord.totalIncreceCoverLine:" + IncreceCodeRecord.totalIncreceCoverLine + ",IncreceCodeRecord.totalIncreceLine:"+ IncreceCodeRecord.totalIncreceLine + "  "+ rate);
 
 
