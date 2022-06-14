@@ -59,6 +59,9 @@ public class ClassProbesAdapter extends ClassVisitor implements
                       final String signature, final String superName,
                       final String[] interfaces) {
         this.name = name;
+//        if(name.contains("Test")){
+//            System.out.println(name);
+//        }
         super.visit(version, access, name, signature, superName, interfaces);
     }
 

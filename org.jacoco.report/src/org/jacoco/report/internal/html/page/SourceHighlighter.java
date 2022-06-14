@@ -100,6 +100,9 @@ final class SourceHighlighter {
 			boolean existFlag = true;
 			for (ClassInfo classInfo : CoverageBuilder.classInfos) {
 				String tClassPath = classInfo.getPackages() + "." + classInfo.getClassName();
+//				if(tClassPath.equals("com.fenqile.anti_fraud.audit.service.logic.AutoauiditProcessLogic")){
+//					System.out.println("");
+//				}
 				if (classPath.equals(tClassPath)) {
 					//	新增的类
 					if ("ADD".equalsIgnoreCase(classInfo.getType())) {

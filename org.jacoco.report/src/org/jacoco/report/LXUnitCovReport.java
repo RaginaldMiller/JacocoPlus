@@ -15,6 +15,7 @@ import org.eclipse.jgit.api.ResetCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.util.FileUtils;
 import org.eclipse.jgit.util.StringUtils;
 import org.jacoco.core.analysis.Analyzer;
 import org.jacoco.core.analysis.CoverageBuilder;
@@ -61,7 +62,7 @@ public class LXUnitCovReport {
         this.sourceCommitId = sourceCommitId;
     }
 
-    public synchronized String generate() throws IOException, GitAPIException {
+    public synchronized String generate() throws Exception {
         this.loadExecutionData();
         IBundleCoverage bundleCoverage = this.analyzeStructure();
         return this.createReport(bundleCoverage);
@@ -86,9 +87,20 @@ public class LXUnitCovReport {
         return newReportDir;
     }
 
-    private IBundleCoverage analyzeStructure() throws IOException, GitAPIException {
+    private IBundleCoverage analyzeStructure() throws Exception {
         GitAdapter.setCredentialsProvider(this.username, this.password);
-        GitAdapter.cloneSource(this.username, this.password, this.gitlabUrl, this.sourceDirectory.getAbsolutePath(), this.testBranchName);
+        // 增加失败重试 3次
+        for (int i = 0; i < 3; i++) {
+            try {
+                GitAdapter.cloneSource(this.username, this.password, this.gitlabUrl, this.sourceDirectory.getAbsolutePath(), this.testBranchName);
+                break;
+            }catch (Exception e){
+                Thread.sleep(3000);
+                if(i==2){
+                    throw e;
+                }
+            }
+        }
         GitAdapter gitAdapter = new GitAdapter(this.sourceDirectory.getAbsolutePath());
         // 如果有传commitId的话，则以特性分支的两个commitId做代码比对；否则以特性分支和待比较分支做代码比对
         if (StringUtils.isEmptyOrNull(testCommitId) || StringUtils.isEmptyOrNull(sourceCommitId)) {
@@ -125,20 +137,26 @@ public class LXUnitCovReport {
         }
         for (File file : sourceFiles) {
             iSourceFileLocator.add(new DirectorySourceFileLocator(new File(file.getAbsolutePath() + "/src/main/java"), "utf-8", 4));
+           // iSourceFileLocator.add(new DirectorySourceFileLocator(new File(file.getAbsolutePath() ), "utf-8", 4));
+            File test = new File(file.getAbsolutePath() + "/src/test/java") ;
+            if(test.exists()){
+                iSourceFileLocator.add(new DirectorySourceFileLocator(test,"utf-8",4));
+            }
         }
         return iSourceFileLocator;
     }
 
-
-    public static void main(String[] args) throws IOException, GitAPIException {
+    public static void main(String[] args) throws Exception {
         String reportPath = null;
-        String unitCovPath = "/Users/liangjing/Documents/todorobo_handover";
-        String classesDirectory = unitCovPath + "/class";
-        String sourceDirectory = unitCovPath + "/source";
+//        String unitCovPath = "/Users/lexin/Downloads/unit";
+        String unitCovPath = "/Users/lexin/Downloads/unit";
+        String classesDirectory = unitCovPath + "/coverage";
+        String sourceDirectory = unitCovPath + "/su";
+
         String reportDirectory = unitCovPath + "/report";
         File executionDataFile = new File(unitCovPath + "/jacoco.exec");
 //        LXUnitCovReport lxUnitCovReport = new LXUnitCovReport("coverage", "rel_fugailv_1261326", "master", null, null, executionDataFile, classesDirectory, sourceDirectory, reportDirectory, "http://gitlab.fenqile.com/foundation_platform_center/fund_allocate_java.git");
-        LXUnitCovReport lxUnitCovReport = new LXUnitCovReport("todorobo_handover", "rel_financial_task_v3_1267346", "master", null, null, executionDataFile, classesDirectory, sourceDirectory, reportDirectory, "http://gitlab.fenqile.com/sys_group/todorobo.git");
+        LXUnitCovReport lxUnitCovReport = new LXUnitCovReport("antifraud_audit", "rel_20220505_1267924", "master", null, null, executionDataFile, classesDirectory, sourceDirectory, reportDirectory, "http://gitlab.fenqile.com/af_group/server_antifraud_audit.git");
         reportPath = lxUnitCovReport.generate();
         int fileTotal = 0;
         for (Map.Entry<String, int[]> fileCoverageEntry : IncreceCodeRecord.classIncreceCoverMap.entrySet()) {

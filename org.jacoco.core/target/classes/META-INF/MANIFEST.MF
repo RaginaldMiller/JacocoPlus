@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Automatic-Module-Name: org.jacoco.core
-Bnd-LastModified: 1649834694250
+Bnd-LastModified: 1653634886386
 Build-Jdk: 1.8.0_301
 Built-By: lexin
 Bundle-Description: JaCoCo Core
@@ -10,10 +10,10 @@ Bundle-Name: JaCoCo Core
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-SymbolicName: org.jacoco.core
 Bundle-Vendor: Mountainminds GmbH & Co. KG
-Bundle-Version: 0.8.4.202204130724
+Bundle-Version: 0.8.4.202205270701
 Created-By: Apache Maven Bundle Plugin
 Eclipse-SourceReferences: scm:git:git://github.com/jacoco/jacoco.git;pat
- h="org.jacoco.core";commitId=1e31dbfd233349030f36b029de983d9bbdc70bb6
+ h="org.jacoco.core";commitId=fabf9be8841706f54f9568a3787d57335e6dac6d
 Export-Package: org.jacoco.core.internal;x-internal:=true;version="0.8.4
  ",org.jacoco.core.internal.analysis;x-internal:=true;version="0.8.4";us
  es:="org.jacoco.core.analysis,org.jacoco.core.internal.analysis.filter,

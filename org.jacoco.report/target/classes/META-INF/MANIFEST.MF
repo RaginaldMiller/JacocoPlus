@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Automatic-Module-Name: org.jacoco.report
-Bnd-LastModified: 1649834974788
+Bnd-LastModified: 1653634834681
 Build-Jdk: 1.8.0_301
 Built-By: lexin
 Bundle-Description: JaCoCo Report
@@ -10,10 +10,10 @@ Bundle-Name: JaCoCo Report
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-SymbolicName: org.jacoco.report
 Bundle-Vendor: Mountainminds GmbH & Co. KG
-Bundle-Version: 0.8.4.202204130729
+Bundle-Version: 0.8.4.202205270700
 Created-By: Apache Maven Bundle Plugin
 Eclipse-SourceReferences: scm:git:git://github.com/jacoco/jacoco.git;pat
- h="org.jacoco.report";commitId=1e31dbfd233349030f36b029de983d9bbdc70bb6
+ h="org.jacoco.report";commitId=fabf9be8841706f54f9568a3787d57335e6dac6d
 Export-Package: org.jacoco.report.internal;x-internal:=true;version="0.8
  .4";uses:="org.jacoco.core.analysis,org.jacoco.report",org.jacoco.repor
  t.internal.html;x-internal:=true;version="0.8.4";uses:="org.jacoco.core

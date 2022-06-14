@@ -22,6 +22,10 @@ public class MethodProbesContext {
     // commitId
     private static TransmittableThreadLocal<String> UDID = new TransmittableThreadLocal<>();
 
+    // 增量代码覆盖率统计数据
+    private static TransmittableThreadLocal<IncreceCodeRecord> INCRECE_RECORD = new TransmittableThreadLocal<>();
+
+
     public static String getUDID() {
         return UDID.get();
     }
@@ -30,4 +34,11 @@ public class MethodProbesContext {
         UDID.set(udid);
     }
 
+    public static IncreceCodeRecord getIncreceRecord() {
+        return INCRECE_RECORD.get();
+    }
+
+    public static void setIncreceRecord(IncreceCodeRecord increceRecord) {
+        INCRECE_RECORD.set(increceRecord);
+    }
 }

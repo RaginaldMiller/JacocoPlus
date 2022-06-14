@@ -128,7 +128,10 @@ public class Analyzer {
 	public void analyzeClass(final byte[] buffer, final String location)
 			throws IOException {
 		try {
-			analyzeClass(buffer);
+			if(!location.contains("test-class")){
+				analyzeClass(buffer);
+			}
+//			analyzeClass(buffer);
 		} catch (final RuntimeException cause) {
 			throw analyzerError(location, cause);
 		}

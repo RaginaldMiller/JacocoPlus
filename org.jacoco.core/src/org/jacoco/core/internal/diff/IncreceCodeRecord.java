@@ -46,10 +46,11 @@ public class IncreceCodeRecord {
 
     public static void getCodeLineStatus(ClassInfo classInfo, ILine line , String linesrc,int lineNr,String classPath){
 
-//        if(classPath.equals("com.fenqile.permission.CameraPhotoUtils")){
-//            System.out.print("");
-//            System.out.println(lineNr + "," + line.getStatus());
-//        }
+        if(classPath.equals("com.fenqile.anti_fraud.audit.service.logic.AutoauiditProcessLogic") && lineNr>456 && lineNr<473){
+            System.out.print("");
+            System.out.println(lineNr + "," + line.getStatus());
+        }C
+
         if(isNoNeedTestLine(classPath,lineNr)){
             return;
         }
